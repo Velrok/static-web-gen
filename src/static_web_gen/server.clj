@@ -1,5 +1,6 @@
 (ns static-web-gen.server
   (:require
+    [clojure.tools.logging :as log]
     [mount.core :refer [defstate start stop]]
     [compojure.route :refer [files not-found]]
     [compojure.core :refer [defroutes GET POST DELETE ANY context]]
@@ -15,11 +16,14 @@
 
 
 (defstate http-server
-  :start (run-server all-routes
-                     {:port (-> (System/getenv)
+  :start (let [port (-> (System/getenv)
                                 (get "PORT" "8080")
-                                (Integer/parseInt))})
-  :stop (.close http-server))
+                                (Integer/parseInt))]
+          (log/info (format "Staring http server at http://localhost:%d" port))
+          (run-server all-routes {:port port}))
+  :stop (do
+          (log/info "Stopping http server.")
+          (.close http-server)))
 
 (comment
   (stop)
