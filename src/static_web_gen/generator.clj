@@ -12,8 +12,15 @@
     [mount.core :as mount :refer [defstate]]))
 
 (def blog-post-layout (->> "./content/layout/blog-post.hiccup.edn"
-                               slurp
-                               edn/read-string))
+                           slurp
+                           edn/read-string))
+
+(def index-layout (->> "./content/layout/index.hiccup.edn"
+                       slurp
+                       edn/read-string))
+
+(def post-discovered (atom #{}))
+
 
 (defmulti produce-static! (fn [classification _] classification))
 
@@ -25,15 +32,15 @@
 
 (defmethod produce-static! ::blog-post
   [_ filename]
-  (let [file-hiccup (->> filename slurp md->hiccup md-to-hiccup/component)
-        final-product (postwalk (fn [x]
+  (let [file-hiccup     (->> filename slurp md->hiccup md-to-hiccup/component)
+        final-product   (postwalk (fn [x]
                                   (if (= x [:div#content])
-                                    file-hiccup
+                                    [:article file-hiccup]
                                     x))
                                 blog-post-layout)
-        rel-file-name (some->> (re-matches #".*/blog/(.*)$" filename) second)
-        target-filename (str "./public/post/" rel-file-name ".html")]
-    (log/info (prn-str [:final-prod final-product]))
+        rel-file-name   (some->> (re-matches #".*/blog/(.*)$" filename) second)
+        target-filename (str "./public/post/" rel-file-name ".html")
+        rel-url         (format "/post/%s.html" rel-file-name)]
     (when rel-file-name
       (log/info (format "produce blog post for %s -> %s (%s)"
                         filename
@@ -41,7 +48,10 @@
                         (format "http://localhost:%d/post/%s.html"
                                 config/port
                                 rel-file-name)))
-      (spit target-filename (html final-product)))))
+      (spit target-filename (html final-product))
+      (swap! post-discovered conj {:original-file filename
+                                   :target-file   target-filename
+                                   :url-rel       rel-url}))))
 
 
 (defn- classify-file
@@ -50,14 +60,47 @@
     (re-find #"/blog/" filename) ::blog-post
     :else ::unknown))
 
+(def posts-prefix "./content/blog/")
+
+(defn generate-index!
+  []
+  (let [file-hiccup     [:ul
+                         (for [{:keys [original-file url-rel]} @post-discovered]
+                           [:li
+                            [:a {:href url-rel} (str original-file)]])]
+        final-product   (postwalk (fn [x]
+                                    (if (= x [:div#content])
+                                      [:article file-hiccup]
+                                      x))
+                                  index-layout)
+        target-filename "./public/index.html"]
+    (log/info (format "regenerating index -> %s (%s)"
+                      target-filename
+                      (format "http://localhost:%d/" config/port)))
+    (spit target-filename (html final-product))))
+(defn generate-all!
+  []
+  (->> "./content/blog/"
+       (io/as-file)
+       file-seq
+       (remove #(.isDirectory %))
+       (map (fn [f]
+              (let [filename (.getAbsolutePath f)]
+                (produce-static! (classify-file filename)
+                                 filename))))
+       doall)
+  (generate-index!))
+
 (defstate static-file-regenerator
   :start (let [paths [{:path        "./content/blog/"
                        :event-types [:create :modify :delete]
                        :bootstrap   (fn [path] (log/info "Starting to watch " path))
                        :callback    (fn [event filename]
                                       (log/info event filename)
-                                      (produce-static! (classify-file filename) filename))
-                       :options     {:recursive true}}]]
+                                      (produce-static! (classify-file filename) filename)
+                                      (generate-index!))
+                       :options     {}}]]
+           (generate-all!)
            (log/info (format "static-file-generator is watching %s"
                              (string/join ", "
                                           (map :path paths))))
