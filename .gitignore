@@ -11,3 +11,4 @@ pom.xml.asc
 .hg/
 public/.DS_Store
 .DS_Store
+public/index.html
