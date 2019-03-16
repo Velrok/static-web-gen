@@ -7,6 +7,7 @@
   :dependencies [[org.clojure/clojure "1.10.0"]
                  [markdown-clj "1.0.7"]
                  [org.clojure/tools.logging "0.4.1"]
+                 [clojure-watch "0.1.14"]
                  [compojure "1.6.1"]
                  [mount "0.1.16"]
                  [http-kit "2.3.0"]])
