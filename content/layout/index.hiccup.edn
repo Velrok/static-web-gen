@@ -15,4 +15,5 @@
   [:div#page
    [:header
     [:h1 "Mein(un)sin"]]
+   [:div#content]
    [:footer]]]]
