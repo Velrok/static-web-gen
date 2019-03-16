@@ -10,21 +10,21 @@ Also since it's hosted on [github](www.github.com) - I will not losse it.
   - Albert Einstein (1879-1955)
 </blockquote>
 
-``` clojure clojure
+``` clojure
 (defn hello [name]
   (println "hello, " name))
 
 (hello "world")
 ```
 
-``` python python
+``` python
 def hello(name):
   print "hello, ", name
 
 hello("world")
 ```
 
-``` ruby ruby
+``` ruby
 def hello(name)
   puts "hello, #{name}"
 end
