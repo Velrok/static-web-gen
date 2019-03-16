@@ -3,8 +3,10 @@
   [:meta {:charset "UTF-8"}]
   [:link {:rel "stylesheet" :href "/css/reset.css"}]
 
-  [:link {:rel "stylesheet" :href "/css/prismjs.css"}]
-  [:script {:type "text/javascript" :src "/js/prismjs.js"}]
+  ;[:link {:rel "stylesheet" :href "/css/prismjs.css"}]
+  ;[:script {:type "text/javascript" :src "/js/prismjs.js"}]
+  [:link {:rel "stylesheet" :href "/css/highlightjs/github.css"}]
+  [:script {:type "text/javascript" :src "/js/highlight.pack.js"}]
 
   [:link {:rel "stylesheet" :href "/css/styles.css"}]
   [:link {:rel "stylesheet" :href "/css/typo.css"}]
@@ -15,5 +17,7 @@
   [:div#page
    ;[:header.website-title [:h1 "Mein(un)sin"]]
    [:div#content]
+   [:script {:type "text/javascript"}
+    "hljs.initHighlightingOnLoad();"]
    [:footer]]]]
 

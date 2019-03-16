@@ -3,13 +3,15 @@ body {
   background-color: #EEEEEE;
   font-size: 18px;
   padding: 1rem;
+  font-family: 'Medio', serif;
 }
 
 .website-title {
   font-family: 'Medio';
   font-size: 5rem;
-  text-align: center;
+  text-align: right;
   margin: 2rem 0 3rem 0;
+  border-bottom: solid 1px #414141;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -18,18 +20,27 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 2rem;
 }
 
+a {
+  text-decoration: none;
+  color: #353535;
+}
+
 article h1, article h2, article h3, article h4, article h5, article h6 {
   padding-top: 1rem;
 }
 
 article h1 {
   border-bottom: solid 1px #414141;
-  padding-bottom: 1rem;
+  padding-bottom: 0.5rem;
   margin-top: 1.5rem;
   text-align: right;
 }
 
-body article {
+article h2 {
+  font-size: 2rem;
+}
+
+body #page {
   max-width: 40em;
   margin: 0 auto;
 }
@@ -37,5 +48,12 @@ body article {
 p {
   margin-bottom: 1em;
   /* line spacing should be 120–145% of the point size. */
+  line-height: 1.4rem;
+}
+
+code {
+  margin: 2rem 0;
+  font-family: 'FiraMono', monospace;
+  font-size: 1rem;
   line-height: 1.4rem;
 }
