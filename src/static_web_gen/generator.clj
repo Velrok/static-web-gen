@@ -30,9 +30,17 @@
    [:h1 "Unknown content type"]
    [:p "for file " (str filename)]])
 
+(comment
+  
+  (def x (->> "/Users/velrok/private/static-web-gen/./content/blog/2013-04-29-hello-world.markdown" slurp md->hiccup md-to-hiccup/component))
+
+  (clojure.pprint/pprint (md-to-hiccup/hiccup-in x :h1))
+  )
+
 (defmethod produce-static! ::blog-post
   [_ filename]
   (let [file-hiccup     (->> filename slurp md->hiccup md-to-hiccup/component)
+        [_ _ title]     (md-to-hiccup/hiccup-in file-hiccup :h1)
         final-product   (postwalk (fn [x]
                                   (if (= x [:div#content])
                                     [:article file-hiccup]
@@ -51,6 +59,7 @@
       (spit target-filename (html final-product))
       (swap! post-discovered conj {:original-file filename
                                    :target-file   target-filename
+                                   :title         title
                                    :url-rel       rel-url}))))
 
 
@@ -65,9 +74,9 @@
 (defn generate-index!
   []
   (let [file-hiccup     [:ul
-                         (for [{:keys [original-file url-rel]} @post-discovered]
+                         (for [{:keys [original-file url-rel title]} @post-discovered]
                            [:li
-                            [:a {:href url-rel} (str original-file)]])]
+                            [:a {:href url-rel} (str (or title original-file))]])]
         final-product   (postwalk (fn [x]
                                     (if (= x [:div#content])
                                       [:article file-hiccup]
