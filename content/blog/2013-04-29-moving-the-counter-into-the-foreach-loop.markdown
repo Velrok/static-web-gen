@@ -1,10 +1,6 @@
----
-layout: post
-title: "moving the counter into the foreach loop"
+# moving the counter into the foreach loop
+
 date: 2013-04-29 01:59
-comments: true
-categories: python
----
 
 Recently I did a little code review for a friend of mine.
 He needed a counter while iterating items of a list.
