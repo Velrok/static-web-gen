@@ -1,10 +1,12 @@
----
-layout: post
-title: "Clojure Getting Started: Setting Up"
-date: 2013-07-17 10:54
-comments: true
-categories: clojure programming tutorial
----
+// ---
+// layout: post
+// title: "Clojure Getting Started: Setting Up"
+// date: 2013-07-17 10:54
+// comments: true
+// categories: clojure programming tutorial
+// ---
+
+# Clojure Getting Started: Setting Up
 
 
 ## Setting Up a Project 

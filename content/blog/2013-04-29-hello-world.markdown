@@ -1,13 +1,4 @@
----
-layout: post
-title: "hello world"
-date: 2013-04-29 01:17
-comments: true
-categories: 
----
-
-Hello world, again.
-
+# Hello world, again.
 
 This is about the 4th blog I started.
 
