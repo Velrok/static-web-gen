@@ -5,7 +5,8 @@
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :main static-web-gen.main
   :dependencies [[org.clojure/clojure "1.10.0"]
-                 [markdown-clj "1.0.7"]
+                 [markdown-to-hiccup "0.6.2"]
+                 [hiccup "1.0.5"]
                  [org.clojure/tools.logging "0.4.1"]
                  [clojure-watch "0.1.14"]
                  [compojure "1.6.1"]
