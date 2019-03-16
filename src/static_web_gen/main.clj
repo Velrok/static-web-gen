@@ -21,6 +21,7 @@
 
 
 (comment
-  (mount/stop)
-  (mount/start))
+  (do
+    (mount/stop)
+    (mount/start)))
 ;
