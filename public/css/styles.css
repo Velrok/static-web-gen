@@ -19,8 +19,14 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 article h1, article h2, article h3, article h4, article h5, article h6 {
-  border-top: solid 1px #414141;
   padding-top: 1rem;
+}
+
+article h1 {
+  border-bottom: solid 1px #414141;
+  padding-bottom: 1rem;
+  margin-top: 1.5rem;
+  text-align: right;
 }
 
 body article {
