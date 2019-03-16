@@ -1,13 +1,6 @@
----
-layout: post
-title: "deploying clojure apps on giant swarm (docker)"
-date: 2014-12-21 19:22
-comments: true
-categories: clojure docker giantswarm
----
+# deploying clojure apps on giant swarm (docker)
 
-<img style="float:left; height:190px" src="/images/giantswarm_logo_standard.png">
-<img style="height:190px" src="/images/docker.png"> 
+date: 2014-12-21 19:22
 
 Recently I've been playing around with Clojure and [docker](https://www.docker.com/).
 Docker provides your app with an isolated container on a Linux machine, sharing the
