@@ -22,7 +22,7 @@
            (run-server all-routes {:port port}))
   :stop (do
           (log/info "Stopping http server.")
-          (.close http-server)))
+          (http-server)))
 
 (comment
   (stop)
