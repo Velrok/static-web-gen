@@ -1,9 +1,10 @@
 body {
   color: #414141;
-  background-color: #EEEEEE;
+  background-color: #FCFCFC;
   font-size: 18px;
   padding: 1rem;
   font-family: 'Medio', serif;
+  padding-bottom: 200px;
 }
 
 .website-title {
@@ -58,4 +59,45 @@ code {
   font-family: 'FiraMono', monospace;
   font-size: 1rem;
   line-height: 1.4rem;
+}
+
+/*TODO*/
+article ul {
+  list-style-type: "\2400";
+  margin: 1.5rem 0;
+}
+
+article ol {
+  list-style-type: decimal;
+  margin: 1.5rem 0;
+}
+
+article li {
+  margin-left: 2rem;
+  margin-bottom: 0.8em;
+}
+
+article blockquote {
+  font-style: italic;
+  margin: 2rem 0.5rem;
+  padding: 1rem;
+  border-left: solid 1px #414141;
+  background: #F7F7F7;
+}
+
+.page-footer {
+  border-top: solid 1px #414141;
+}
+
+.page-footer nav {
+  display: flex;
+  // justify-content: center;
+}
+
+.page-footer nav ul {
+  justify-content: space-around;
+}
+
+.page-footer nav ul li {
+  display: inline-block;
 }

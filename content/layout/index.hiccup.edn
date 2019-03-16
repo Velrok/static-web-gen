@@ -16,4 +16,4 @@
    [:header
     [:h1.website-title "Mein(un)sin"]]
    [:div#content]
-   [:footer]]]]
+   [:footer.page-footer]]]]
