@@ -1,0 +1,18 @@
+[:html {:lang "en"}
+ [:head
+  [:meta {:charset "UTF-8"}]
+  [:link {:rel "stylesheet" :href "css/reset.css"}]
+
+  [:link {:rel "stylesheet" :href "css/prismjs.css"}]
+  [:script {:type "text/javascript" :src "js/prismjs.js"}]
+
+  [:link {:rel "stylesheet" :href "css/styles.css"}]
+  [:link {:rel "stylesheet" :href "css/typo.css"}]
+
+  [:title "Mein(un)sin"]]
+
+ [:body
+  [:div#page
+   [:header
+    [:h1 "Mein(un)sin"]]
+   [:footer]]]]
