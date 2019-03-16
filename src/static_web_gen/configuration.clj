@@ -2,5 +2,5 @@
 
 (def port
   (-> (System/getenv)
-      (get "PORT" "8080")
+      (get "PORT" "4444")
       (Integer/parseInt)))
