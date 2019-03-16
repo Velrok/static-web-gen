@@ -17,7 +17,7 @@ body {
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Medio', serif;
   font-size: 3rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
 
 a {
@@ -27,6 +27,7 @@ a {
 
 article h1, article h2, article h3, article h4, article h5, article h6 {
   padding-top: 1rem;
+  margin-top: 2rem;
 }
 
 article h1 {
@@ -38,6 +39,7 @@ article h1 {
 
 article h2 {
   font-size: 2rem;
+  // border-top: solid 1px #c4c4c4;
 }
 
 body #page {
@@ -46,7 +48,7 @@ body #page {
 }
 
 p {
-  margin-bottom: 1em;
+  margin-bottom: 1rem;
   /* line spacing should be 120–145% of the point size. */
   line-height: 1.4rem;
 }
