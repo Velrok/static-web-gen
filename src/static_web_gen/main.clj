@@ -1,7 +1,8 @@
 (ns static-web-gen.main
   (:require
     [clojure.tools.logging :as log]
-    [static-web-gen.server :refer [http-server]]
+    [static-web-gen.server]
+    [static-web-gen.generator]
     [mount.core :as mount]))
 
 (defn -main
@@ -17,3 +18,9 @@
   (log/info "Starting system")
   (mount/start)
   (log/info "System running ..."))
+
+
+(comment
+  (mount/stop)
+  (mount/start))
+;
