@@ -1,9 +1,13 @@
 body {
   color: #414141;
   background-color: #FCFCFC;
-  font-size: 18px;
-  padding: 1rem;
+
   font-family: 'Medio', serif;
+  font-size: 20px;
+  /* line spacing should be 120–145% of the point size. */
+  line-height: 1.4em;
+
+  padding: 1rem;
   padding-bottom: 200px;
 }
 
@@ -18,7 +22,7 @@ body {
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Medio', serif;
   font-size: 3rem;
-  margin-bottom: 1.5rem;
+  line-height: 3.6rem;
 }
 
 a {
@@ -29,6 +33,7 @@ a {
 article h1, article h2, article h3, article h4, article h5, article h6 {
   padding-top: 1rem;
   margin-top: 2rem;
+  margin-bottom: 1rem;
 }
 
 article h1 {
@@ -44,18 +49,16 @@ article h2 {
 }
 
 body #page {
-  max-width: 40em;
+  max-width: 40rem;
   margin: 0 auto;
 }
 
 p {
   margin-bottom: 1rem;
-  /* line spacing should be 120–145% of the point size. */
-  line-height: 1.4rem;
 }
 
 code {
-  margin: 2rem 0;
+  margin: 1rem 0;
   font-family: 'FiraMono', monospace;
   font-size: 1rem;
   line-height: 1.4rem;
@@ -87,17 +90,20 @@ article blockquote {
 
 .page-footer {
   border-top: solid 1px #414141;
+  padding: 1rem;
 }
 
 .page-footer nav {
-  display: flex;
-  // justify-content: center;
 }
 
 .page-footer nav ul {
+  display: flex;
   justify-content: space-around;
 }
 
 .page-footer nav ul li {
-  display: inline-block;
+  font-size: 1.2rem;
+  justify-content: center;
+  display: flex;
+  width: 100%;
 }
