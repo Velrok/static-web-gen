@@ -107,6 +107,7 @@
 
 (defn generate-all!
   []
+  (reset! post-discovered #{})
   (log/info "generate-all!")
   (->> "./content/blog/"
        (io/as-file)
