@@ -23,6 +23,6 @@
     [:nav
      [:ul
       [:li "&#8612; previous"]
-      [:li "&#8613; top"]
+      [:li "&#8613; index"]
       [:li "&#8614; next"]]]]]]]
 
