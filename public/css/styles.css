@@ -8,7 +8,7 @@ body {
   line-height: 1.4em;
 
   padding: 1rem;
-  padding-bottom: 200px;
+  padding-bottom: 150px;
 }
 
 .website-title {
@@ -34,6 +34,7 @@ article h1, article h2, article h3, article h4, article h5, article h6 {
   padding-top: 1rem;
   margin-top: 2rem;
   margin-bottom: 1rem;
+  font-size: 2rem;
 }
 
 article h1 {
@@ -41,11 +42,6 @@ article h1 {
   padding-bottom: 0.5rem;
   margin-top: 1.5rem;
   text-align: right;
-}
-
-article h2 {
-  font-size: 2rem;
-  // border-top: solid 1px #c4c4c4;
 }
 
 body #page {
@@ -66,8 +62,13 @@ code {
 
 /*TODO*/
 article ul {
-  list-style-type: "\2400";
+  list-style: none;
   margin: 1.5rem 0;
+}
+
+article ul li:before {
+  content: "\279B";
+  margin-right: 1em;
 }
 
 article ol {
