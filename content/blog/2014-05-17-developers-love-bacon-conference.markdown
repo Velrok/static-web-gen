@@ -1,10 +1,6 @@
----
-layout: post
-title: "Developers Love Bacon - Conference"
+# Developers Love Bacon - Conference
+
 date: 2014-05-17 14:45
-comments: true
-categories: Conference London
----
 
 ![bacon](/images/bacon_2014.png)
 

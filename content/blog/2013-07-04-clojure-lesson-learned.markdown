@@ -1,10 +1,6 @@
----
-layout: post
-title: "Clojure Lesson Learned"
+# Clojure Lesson Learned
+
 date: 2013-09-27 16:50
-comments: true
-categories: 
----
 
 ## background
 
