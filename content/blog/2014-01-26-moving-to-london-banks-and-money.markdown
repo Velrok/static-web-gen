@@ -1,10 +1,6 @@
----
-layout: post
-title: "Moving to London: Banks and Money"
+# Moving to London: Banks and Money
+
 date: 2014-01-26 15:05
-comments: true
-categories: London moving real_live
----
 
 ![money](/images/money.jpg)
 
