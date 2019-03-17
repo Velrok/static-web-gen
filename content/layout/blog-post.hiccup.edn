@@ -22,7 +22,7 @@
    [:footer.page-footer
     [:nav
      [:ul
-      [:li "&#8612; previous"]
-      [:li "&#8613; index"]
-      [:li "&#8614; next"]]]]]]]
+      [:li [:a#footer_nav_previous {:href "/"} "&#8612; previous"]]
+      [:li [:a#footer_nav_index {:href "/"} "&#8613; index"]]
+      [:li [:a#footer_nav_next {:href "/"} "&#8614; next"]]]]]]]]
 
