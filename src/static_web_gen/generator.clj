@@ -95,7 +95,8 @@
         final-product   (postwalk (fn [x]
                                     (cond
                                       (= x [:div#content])
-                                      [:article file-hiccup]
+                                      [:div#content
+                                       [:article file-hiccup]]
 
                                       :else x))
                                   index-layout)
