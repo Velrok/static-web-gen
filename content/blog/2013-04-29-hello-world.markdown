@@ -1,6 +1,7 @@
-# Hello world, again.
-
-<time class="article-date" date="2013-4-29">2013-04-29</time>
+<header>
+  # Hello world, again.
+  <time class="article-date" date="2013-4-29">2013-04-29</time>
+</header>
 
 This is about the 4th blog I started.
 
