@@ -108,3 +108,10 @@ article blockquote {
   display: flex;
   width: 100%;
 }
+
+.article-date {
+  margin-top: -0.8rem;
+  font-size: 1.07rem;
+  display: block;
+}
+
