@@ -19,7 +19,7 @@ body {
   font-size: 5rem;
   text-align: right;
   margin: 2rem 0 3rem 0;
-  border-bottom: solid 1px #414141;
+  //border-bottom: solid 1px #414141;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -34,22 +34,23 @@ a {
 }
 
 article h1, article h2, article h3, article h4, article h5, article h6 {
-  padding-top: 1rem;
-  margin-top: 2rem;
-  margin-bottom: 1rem;
+  margin-top: 2em;
+  margin-bottom: 0.7em;
   font-size: 2rem;
 }
 
-article h1 {
-  // border-bottom: solid 1px #414141;
-  padding-bottom: 0.5rem;
-  margin-top: 1.5rem;
+#content article header h1 {
+  margin-top: 0.5em;
   text-align: right;
+  font-size: 3.5rem;
+}
+
+#content article header {
+  margin-bottom: 4rem;
 }
 
 body #page {
   max-width: 40rem;
-
 }
 
 p {
@@ -92,8 +93,14 @@ article blockquote {
   background: #F7F7F7;
 }
 
-.page-footer {
+#page #content {
   border-top: solid 1px #414141;
+  border-bottom: solid 1px #414141;
+  padding-bottom: 2rem;
+}
+
+.page-footer {
+  // border-top: solid 1px #414141;
   padding: 1rem;
 }
 
