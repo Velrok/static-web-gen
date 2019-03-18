@@ -7,21 +7,21 @@
 
 @font-face {
   font-family: 'FiraMono';
-  src: url('/fonts/FiraMono_Regular.ttf') format('truetype');
+  src: url('/fonts/FiraMono-Regular.ttf') format('truetype');
   font-style: normal;
   font-weight: regular;
 }
 
 @font-face {
   font-family: 'FiraMono';
-  src: url('/fonts/FiraMono_Medium.ttf') format('truetype');
+  src: url('/fonts/FiraMono-Medium.ttf') format('truetype');
   font-style: normal;
   font-weight: medium;
 }
 
 @font-face {
   font-family: 'FiraMono';
-  src: url('/fonts/FiraMono_Bold.ttf') format('truetype');
+  src: url('/fonts/FiraMono-Bold.ttf') format('truetype');
   font-style: normal;
   font-weight: bold;
 }
