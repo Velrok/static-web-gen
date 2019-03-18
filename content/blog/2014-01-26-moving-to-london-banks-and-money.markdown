@@ -1,8 +1,8 @@
+<header>
 # Moving to London: Banks and Money
 
-date: 2014-01-26 15:05
-
-![money](/images/money.jpg)
+<time class="article-date" date="2014-1-26">2014-01-26</time>
+</header>
 
 I moved to London two days ago to start my new job here.
 So this is an attempt to collect information and sources that I found useful.

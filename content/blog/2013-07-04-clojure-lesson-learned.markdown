@@ -1,6 +1,6 @@
 # Clojure Lesson Learned
 
-date: 2013-09-27 16:50
+<time class="article-date" date="2013-9-27">2013-09-27</time>
 
 ## background
 

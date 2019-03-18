@@ -1,8 +1,7 @@
-# Developers Love Bacon - Conference
-
-date: 2014-05-17 14:45
-
-![bacon](/images/bacon_2014.png)
+<header>
+  # Developers Love Bacon - Conference
+  <time date="2014-05-17">2014-05-17</time>
+</header>
 
   > BACON is a two-day conference on all the things developers love.
 

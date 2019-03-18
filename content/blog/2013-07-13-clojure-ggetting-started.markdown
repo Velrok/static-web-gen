@@ -1,12 +1,6 @@
-// ---
-// layout: post
-// title: "Clojure Getting Started: Setting Up"
-// date: 2013-07-17 10:54
-// comments: true
-// categories: clojure programming tutorial
-// ---
-
 # Clojure Getting Started: Setting Up
+
+<time class="article-date" date="2013-7-17">2013-07-17</time>
 
 
 ## Setting Up a Project 

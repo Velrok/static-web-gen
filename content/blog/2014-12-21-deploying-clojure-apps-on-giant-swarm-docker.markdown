@@ -1,6 +1,8 @@
+<header>
 # deploying clojure apps on giant swarm (docker)
 
-date: 2014-12-21 19:22
+<time class="article-date" date="2014-12-21">2014-12-21</time>
+</header>
 
 Recently I've been playing around with Clojure and [docker](https://www.docker.com/).
 Docker provides your app with an isolated container on a Linux machine, sharing the

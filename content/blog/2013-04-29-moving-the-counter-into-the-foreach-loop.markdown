@@ -1,6 +1,6 @@
 # moving the counter into the foreach loop
 
-date: 2013-04-29 01:59
+<time class="article-date" date="2013-4-29">2013-04-29</time>
 
 Recently I did a little code review for a friend of mine.
 He needed a counter while iterating items of a list.
