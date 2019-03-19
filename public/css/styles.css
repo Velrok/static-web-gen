@@ -41,8 +41,15 @@ article h1, article h2, article h3, article h4, article h5, article h6 {
 
 #content article header h1 {
   margin-top: 0.5em;
-  text-align: right;
+  text-align: left;
   font-size: 3.5rem;
+}
+
+#content article header time {
+  margin-top: -0.8rem;
+  text-align: right;
+  font-size: 1.07rem;
+  display: block;
 }
 
 #content article header {
@@ -117,12 +124,6 @@ article blockquote {
   justify-content: center;
   display: flex;
   width: 100%;
-}
-
-.article-date {
-  margin-top: -0.8rem;
-  font-size: 1.07rem;
-  display: block;
 }
 
 /*
