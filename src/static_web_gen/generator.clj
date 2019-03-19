@@ -19,18 +19,9 @@
                        slurp
                        edn/read-string))
 
-(def post-discovered (atom #{}))
+(def blog-post-index (atom #{}))
 
-
-(defmulti produce-static! (fn [classification _] classification))
-
-(defmethod produce-static! ::unknown
-  [_ filename]
-  [:div
-   [:h1 "Unknown content type"]
-   [:p "for file " (str filename)]])
-
-(defn post-meta
+(defn parse-blog-post-md
   [filename]
   (let [file-hiccup     (->> filename slurp md->hiccup md-to-hiccup/component)
         [_ _ title]     (md-to-hiccup/hiccup-in file-hiccup :h1)
@@ -41,55 +32,48 @@
      :rel-file-name   rel-file-name
      :target-filename target-filename
      :title           title
-     :url-rel         rel-url}))
+     :url-rel         rel-url
+     :content         file-hiccup
+     :layout          blog-post-layout}))
 
-(comment
-  
-  (def x (->> "/Users/velrok/private/static-web-gen/./content/blog/2013-04-29-hello-world.markdown" slurp md->hiccup md-to-hiccup/component))
+(defmulti content-replacement
+  (fn [post-meta x]
+    (cond
+      (vector? x) (first x)
+      :else ::id)))
 
-  (clojure.pprint/pprint (md-to-hiccup/hiccup-in x :h1))
-  )
+(defmethod content-replacement :default [post-meta x] x)
+(defmethod content-replacement ::id     [post-meta x] x)
 
-(defmethod produce-static! ::blog-post
-  [_ filename]
-  (let [file-hiccup     (->> filename slurp md->hiccup md-to-hiccup/component)
-        {:keys [title target-filename rel-file-name] :as p-meta} (post-meta filename)
-        final-product   (postwalk (fn [x]
-                                    (cond
-                                      (= x [:div#content])
-                                      [:div#content
-                                       [:article file-hiccup]]
+(defmethod content-replacement :div#content
+  [{:keys [content]} x]
+  [:div#content
+   [:article content]])
 
-                                      (and (vector? x)
-                                           (if-let [[tag _] x]
-                                             (= :title tag)))
-                                      [:title (str title " - " (second x))]
+(defmethod content-replacement :div#content
+  [{:keys [title]} [_ existing-title]]
+  [:title (str title " - " existing-title)])
 
-                                      :else x))
+
+(defn produce-blog-post-html!
+  [{:keys [original-file target-filename rel-file-name] :as post-meta}]
+  (let [final-product   (postwalk (partial content-replacement post-meta)
                                   blog-post-layout)]
     (when target-filename
       (log/info (format "produce blog post for %s -> %s (%s)"
-                        filename
+                        original-file
                         target-filename
                         (format "http://localhost:%d/post/%s.html"
                                 config/port
                                 rel-file-name)))
-      (spit target-filename (html final-product))
-      (swap! post-discovered conj p-meta))))
-
-
-(defn- classify-file
-  [filename]
-  (cond
-    (re-find #"/blog/" filename) ::blog-post
-    :else ::unknown))
+      (spit target-filename (html final-product)))))
 
 (def posts-prefix "./content/blog/")
 
 (defn generate-index!
   []
   (let [file-hiccup     [:ul
-                         (for [{:keys [original-file url-rel title]} @post-discovered]
+                         (for [{:keys [original-file url-rel title]} @blog-post-index]
                            [:li
                             [:a {:href url-rel} (str (or title original-file))]])]
         final-product   (postwalk (fn [x]
@@ -108,16 +92,15 @@
 
 (defn generate-all!
   []
-  (reset! post-discovered #{})
+  (reset! blog-post-index #{})
   (log/info "generate-all!")
   (->> "./content/blog/"
        (io/as-file)
        file-seq
        (remove #(.isDirectory %))
-       (map (fn [f]
-              (let [filename (.getAbsolutePath f)]
-                (produce-static! (classify-file filename)
-                                 filename))))
+       (map #(.getAbsolutePath %))
+       (map parse-blog-post-md)
+       (map produce-blog-post-html!)
        doall)
   (generate-index!))
 
@@ -127,7 +110,7 @@
                        :bootstrap   (fn [path] (log/info "Starting to watch " path))
                        :callback    (fn [event filename]
                                       (log/info event filename)
-                                      (produce-static! (classify-file filename) filename)
+                                      (produce-blog-post-html! filename)
                                       (generate-index!))
                        :options     {}}]]
            (generate-all!)
