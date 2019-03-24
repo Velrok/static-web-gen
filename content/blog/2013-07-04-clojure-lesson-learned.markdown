@@ -1,5 +1,5 @@
 <header>
-# Clojure Lesson Learned
+# Clojure lesson learned
 <time class="article-date" date="2013-9-27">2013-09-27</time>
 </header>
 

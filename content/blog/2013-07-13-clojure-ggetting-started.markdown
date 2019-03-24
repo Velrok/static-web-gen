@@ -1,6 +1,8 @@
-# Clojure Getting Started: Setting Up
+<header>
+# Clojure getting started: setting up
 
 <time class="article-date" date="2013-7-17">2013-07-17</time>
+</header>
 
 
 ## Setting Up a Project 

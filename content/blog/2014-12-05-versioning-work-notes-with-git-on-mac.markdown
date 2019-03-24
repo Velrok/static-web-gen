@@ -1,6 +1,8 @@
-# Versioning work notes with git on Mac
+<header>
+# Versioning work notes with git on mac
 
 <time class="article-date" date="2014-12-5">2014-12-05</time>
+</header>
 
 I started to keep a loose log of todo's and related useful information at work.
 This log is a simple text, file which I use in a append-only fashion.

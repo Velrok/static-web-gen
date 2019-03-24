@@ -1,6 +1,6 @@
 <header>
-  # Developers Love Bacon - Conference
-  <time date="2014-05-17">2014-05-17</time>
+# Developers Love Bacon - conference
+<time date="2014-05-17">2014-05-17</time>
 </header>
 
   > BACON is a two-day conference on all the things developers love.

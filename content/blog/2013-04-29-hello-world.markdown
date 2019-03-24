@@ -1,5 +1,5 @@
 <header>
-  # Hello world, again.
+  # Hello world, again
   <time class="article-date" date="2013-4-29">2013-04-29</time>
 </header>
 

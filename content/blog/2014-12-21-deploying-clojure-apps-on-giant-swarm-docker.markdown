@@ -1,5 +1,5 @@
 <header>
-# deploying clojure apps on giant swarm (docker)
+# Deploying clojure apps on giant swarm (docker)
 
 <time class="article-date" date="2014-12-21">2014-12-21</time>
 </header>

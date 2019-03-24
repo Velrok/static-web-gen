@@ -1,6 +1,8 @@
-# moving the counter into the foreach loop
+<header>
+# Moving the counter into the foreach loop
 
 <time class="article-date" date="2013-4-29">2013-04-29</time>
+</header>
 
 Recently I did a little code review for a friend of mine.
 He needed a counter while iterating items of a list.
