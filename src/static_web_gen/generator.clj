@@ -8,6 +8,8 @@
     [clojure.edn :as edn]
     [clojure.walk :as walk :refer [postwalk]]
     [hiccup.core :refer [html]]
+    [clj-time.core :as t]
+    [clj-time.format :as f]
     [markdown-to-hiccup.core :as md-to-hiccup :refer [md->hiccup]]
     [mount.core :as mount :refer [defstate]]))
 
@@ -21,20 +23,7 @@
 
 (def blog-post-index (atom #{}))
 
-(defn parse-blog-post-md
-  [filename]
-  (let [file-hiccup     (->> filename slurp md->hiccup md-to-hiccup/component)
-        [_ _ title]     (md-to-hiccup/hiccup-in file-hiccup :h1)
-        rel-file-name   (some->> (re-matches #".*/blog/(.*)$" filename) second)
-        target-filename (str "./public/post/" rel-file-name ".html")
-        rel-url         (format "/post/%s.html" rel-file-name)]
-    {:original-file   filename
-     :rel-file-name   rel-file-name
-     :target-filename target-filename
-     :title           title
-     :url-rel         rel-url
-     :content         file-hiccup
-     :layout          blog-post-layout}))
+
 
 (defmulti content-replacement
   (fn [post-meta x]
@@ -42,7 +31,7 @@
       (vector? x) (first x)
       :else ::id)))
 
-(defmethod content-replacement :default [post-meta x] x)
+(defmethod content-replacement :default [post-meta x] #_(prn {::tag (first x)}) x)
 (defmethod content-replacement ::id     [post-meta x] x)
 
 (defmethod content-replacement :div#content
@@ -50,9 +39,16 @@
   [:div#content
    [:article content]])
 
-(defmethod content-replacement :div#content
+(defmethod content-replacement :title
   [{:keys [title]} [_ existing-title]]
   [:title (str title " - " existing-title)])
+
+(defmethod content-replacement :code
+  [_ [_ attr content]]
+  (log/info (prn-str [::code content]))
+  [:code attr (-> (str content)
+                  (string/replace  #">" "&gt;")
+                  (string/replace  #"<" "&lt;"))])
 
 
 (defn produce-blog-post-html!
@@ -71,11 +67,13 @@
 (def posts-prefix "./content/blog/")
 
 (defn generate-index!
-  []
+  [posts]
   (let [file-hiccup     [:ul
-                         (for [{:keys [original-file url-rel title]} @blog-post-index]
+                         (for [{:keys [original-file url-rel title date-str]} (reverse (sort-by :date-str posts))]
                            [:li
-                            [:a {:href url-rel} (str (or title original-file))]])]
+                            (when date-str [:span.article-date date-str])
+                            [:a {:href url-rel}
+                             (str (or title original-file))]])]
         final-product   (postwalk (fn [x]
                                     (cond
                                       (= x [:div#content])
@@ -90,19 +88,38 @@
                       (format "http://localhost:%d/" config/port)))
     (spit target-filename (html final-product))))
 
+(defn parse-blog-post-md
+  [filename]
+  (let [file-hiccup     (->> filename slurp md->hiccup md-to-hiccup/component)
+        [_ _ title]     (md-to-hiccup/hiccup-in file-hiccup :h1)
+        [_ {date :date} _]     (md-to-hiccup/hiccup-in file-hiccup :header :time)
+        rel-file-name   (some->> (re-matches #".*/blog/(.*)$" filename) second)
+        target-filename (str "./public/post/" rel-file-name ".html")
+        rel-url         (format "/post/%s.html" rel-file-name)]
+    {:original-file   filename
+     :rel-file-name   rel-file-name
+     :target-filename target-filename
+     :date-str        date
+     :title           title
+     :url-rel         rel-url
+     :content         (postwalk (partial content-replacement {})
+                                file-hiccup)
+     :layout          blog-post-layout}))
+
 (defn generate-all!
   []
   (reset! blog-post-index #{})
   (log/info "generate-all!")
-  (->> "./content/blog/"
-       (io/as-file)
-       file-seq
-       (remove #(.isDirectory %))
-       (map #(.getAbsolutePath %))
-       (map parse-blog-post-md)
-       (map produce-blog-post-html!)
-       doall)
-  (generate-index!))
+  (let [posts (->> "./content/blog/"
+                   (io/as-file)
+                   file-seq
+                   (remove #(.isDirectory %))
+                   (map #(.getAbsolutePath %))
+                   (map parse-blog-post-md))]
+    (->> posts
+         (map produce-blog-post-html!)
+         doall)
+    (generate-index! posts)))
 
 (defstate static-file-regenerator
   :start (let [paths [{:path        "./content/blog/"
