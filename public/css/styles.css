@@ -21,6 +21,20 @@ body {
   // border-bottom: solid 1px #414141;
 }
 
+@media only screen and (min-width: 40em) {
+  .website-title {
+    font-size: 5rem;
+  }
+}
+
+@media only screen and (max-width: 39em) {
+  .website-title {
+    font-size: 18vw;
+  }
+}
+
+
+
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Medio', serif;
   font-size: 3rem;
