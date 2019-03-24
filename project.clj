@@ -7,6 +7,7 @@
   :dependencies [[org.clojure/clojure "1.10.0"]
                  [markdown-to-hiccup "0.6.2"]
                  [hiccup "1.0.5"]
+                 [clj-time "0.15.0"]
                  [org.clojure/tools.logging "0.4.1"]
                  [clojure-watch "0.1.14"]
                  [compojure "1.6.1"]
