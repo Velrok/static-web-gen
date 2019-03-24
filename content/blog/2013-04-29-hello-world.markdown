@@ -3,10 +3,10 @@
   <time class="article-date" date="2013-4-29">2013-04-29</time>
 </header>
 
-This is about the 4th blog I started.
+This is about the 4th blog I'm starting.
 
-This time it should be around for longer, beacaue [octopress](http://octopress.org/) is nicer than wordpress - from a programmers standpoint :) .
-Also since it's hosted on [github](www.github.com) - I will not losse it.
+This time it should be around for longer, because [octopress](http://octopress.org/) is nicer than wordpress - from a programmers standpoint :) .
+Also since it's hosted on [github](www.github.com) - I should not loss it.
 
 <blockquote>
   "The significant problems we face cannot be solved at the same level of thinking we were at when we created them."<br>

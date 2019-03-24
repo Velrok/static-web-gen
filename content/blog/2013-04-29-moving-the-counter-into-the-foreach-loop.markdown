@@ -4,9 +4,8 @@
 <time class="article-date" date="2013-4-29">2013-04-29</time>
 </header>
 
-Recently I did a little code review for a friend of mine.
+Recently reviewed some python for a friend of mine.
 He needed a counter while iterating items of a list.
-He solved it the same way I did - many times befor, always a little bit annoyed by the fact that I needed to declare and incredent the counter myself.
 
 ``` python 
 
@@ -19,7 +18,9 @@ for thing in stuff:
 
 ```
 
-Python comes with this nice `for i in list` formulation, so taking care of a counter seperatly seamed wrong.
+Having an extra counter var always annoyed me.
+
+Python comes with this nice `for i in list` formulation, so taking care of a counter separately seamed wrong or at least not elegant.
 
 ## update
 
@@ -50,12 +51,12 @@ for thing, i in zip(stuff, range(len(stuff))):
 
 ```
 
-`zip` takes n lists and combines thouse elements into tubles, drawing from all lists, stoping if one of the lists is exeeded. This makes it very usefull in combination with infinit lists.
+`zip` takes n lists and combines those elements into tuples, drawing from all lists, stopping if one of the lists is exhausted. This makes it very useful in combination with infinite lists.
 
-Ok now this takes care of incrementing `i` for us, nice :) .
+This takes care of incrementing `i` for us :).
 However it's still cumbersome to have to specify the range.
-What we really want is a lazy sequenze of integers that just counts up starting at a value of our choosing.
-Python [itertools](http://docs.python.org/2/library/itertools.html) to the rescure.
+What we really want is a lazy sequence of integers that just counts up starting at a specified value.
+Python [itertools](http://docs.python.org/2/library/itertools.html) to the rescue.
 The iter tools provide a `count()` function that returns this generator:
 
 ```python
@@ -82,6 +83,6 @@ for thing, i in zip(stuff, count(1))):
 Note that by calling `count(1)` the sequence starts at 1,
 removing the need to call `i + 1` in the print statement all together.
 
-In the end I was very pleased to finally having found - what I belive to be - a beautiefull solution to this problem in python.
+In the end I was very pleased to finally having found - what I belief to be - a beautiful solution to this problem in python.
 
 Feel free to comment or contact me on twitter.

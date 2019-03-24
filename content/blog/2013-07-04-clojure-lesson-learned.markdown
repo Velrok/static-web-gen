@@ -32,7 +32,7 @@ visualisation.
 ## likes
 
 The best thing about Clojure are its persistent and immutable data structures.
-Immutable meand that one can not change a basic data structure in place.
+Immutable meant that one can not change a basic data structure in place.
 If you need to add a thing to a vector you simple call a function
 that returns a new vector. 
 This is where the persistent part kicks in.
@@ -86,17 +86,17 @@ restart it about 1-3 times a day.
 One of my main motivations to try clojure was to utilize its 
 [STM: Software Transactional Memory](http://en.wikipedia.org/wiki/Transactional_memory)
 which enables you to use agents and atoms and a lot of concurrent goodness.
-So I assumed having to think in concurrent terms would be the big obsticle.
+So I assumed having to think in concurrent terms would be the big obstacle.
 
 ### Immutable data structures rock!
 
 It turns out that the biggest brain wracker during the first 2 weeks where
 immutable data structures!
 This things force you to think the other way around. You end up writing 
-recepies on how to create a new thing by applying a function to each element of
-a input instead of writting recepies on how to change something in place.
+receipts on how to create a new thing by applying a function to each element of
+a input instead of writing receipts on how to change something in place.
 
-Lets assum we want to implement the [game of live](http://en.wikipedia.org/wiki/Conway's_Game_of_Life).
+Lets assume we want to implement the [game of live](http://en.wikipedia.org/wiki/Conway's_Game_of_Life).
 
 In python a update function could look something like this:
 
@@ -134,13 +134,13 @@ At no point in time can we change the input world nor do we change a already
 created object.
 
 You can of course write functional code in python using map. However 
-pyhton doesn't ensure that you do not change the datastructure in place by 
+pyhton doesn't ensure that you do not change the data structure in place by 
 accident.
 
 
 ### use require instead of use
 
-Namespaces and including and referencing code from other packages was vey
+Namespaces and including and referencing code from other packages was very
 confusing to me, because to do so you can use `(use)` `(require)` and `(import)`.
 
 When applying `use` all the functions are imported into the current namespace:
@@ -164,11 +164,11 @@ Where `require` lets you alias packages:
 
 One thing that stuck right in my head from the beginning was that everything a 
 function operates on should be past in as an argument instead of
-using a gloabel var.
+using a global var.
 Stuard Sierra gave a talk titled 
 [Clojure in the Large](http://www.infoq.com/presentations/Clojure-Large-scale-patterns-techniques)
 that points out why this is the right way to do things and gives tips and 
-examples on how to achive this goal in the large.
+examples on how to achieve this goal in the large.
 
 
 ### Don't overuse ->> and ->
@@ -178,7 +178,7 @@ It took me a while to understand the
 and 
 [->>](http://clojure.github.io/clojure/clojure.core-api.html#clojure.core/->>) 
 operations.
-You can use thouse to build a pipeline. Which is a beautyfull construct in
+You can use those to build a pipeline. Which is a beautiful construct in
 many situations. 
 
 
@@ -203,24 +203,24 @@ many situations.
 ```
 
 However when you find yourself writing huge anonymous functions
-that draw from previus defined variables for example in a 
+that draw from previous defined variables for example in a 
 [let](http://clojure.github.io/clojure/clojure.core-api.html#clojure.core/let)
 it is probably time to reconsider your code :) and use plain let to
-store and name intermediat results.
+store and name intermediate results.
 
 
 ### Test first!
 
 This is and remains true. You shall test first and implement later!
 
-Beeing new to the language the REPL helped me a lot.
+Being new to the language the REPL helped me a lot.
 I used it to experiment with code snippets quickly. 
 Especially when you are not sure how the output of a function looks exactly,
 it's nice to play around with it a little in the REPL.
 
-However I missed going back and fixiate this in test cases.
+However I did not go back and encoded this in test cases.
 I got lazy and tried to cut corners by skipping the tests.
-Gues what it came back to bite me only 2 weeks later. Write tests!
+Guess what it came back to bite me only 2 weeks later. Write tests!
 
 The default Test framework for Clojure seams to be 
 [midje](https://github.com/marick/Midje).
@@ -240,14 +240,12 @@ If you use `map` a lot making things run on multiple cores is easy:
 just replace `map` with a `pmap`. This will execute the function in parallel using
 multiple cores.
 While this is a valid and easy step, it is only beneficial if the function
-takes some time to run. Otherwise the overhead of `pmap` will midigate the effect
-and you end up beeing slower.
+takes some time to run. Otherwise the overhead of `pmap` will mitigate the effect and you end up being slower.
 So start at the out calls and see how far you can get.
 
-If you need better prallel performance Clojure gives you the new 
+If you need better pralell performance Clojure gives you the new 
 [reducers](http://clojure.com/blog/2012/05/08/reducers-a-library-and-model-for-collection-processing.html).
-They sacrifice lazyness to give you a fork join abstraction that uses map
-reduce semantics.
+They sacrifice laziness to give you a fork join abstraction that uses map reduce semantics.
 I did read the article, but did not have the time to experiment a lot with it.
 
 Also [core.async](https://github.com/clojure/core.async)
