@@ -146,3 +146,7 @@
   :stop (do
           (log/info "stopping static-file-generator")
           (static-file-regenerator)))
+
+(defn -main
+  [& args]
+  (generate-all!))

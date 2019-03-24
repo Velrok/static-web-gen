@@ -12,4 +12,5 @@
                  [clojure-watch "0.1.14"]
                  [compojure "1.6.1"]
                  [mount "0.1.16"]
-                 [http-kit "2.3.0"]])
+                 [http-kit "2.3.0"]]
+  :aliases {"gen" ["lein" "run" "-m" "static-web-gen.generator"]})

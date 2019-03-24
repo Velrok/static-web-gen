@@ -2,7 +2,7 @@
   (:require
     [clojure.tools.logging :as log]
     [static-web-gen.server]
-    [static-web-gen.generator]
+    [static-web-gen.generator :refer [generate-all!]]
     [mount.core :as mount]))
 
 (defn -main
