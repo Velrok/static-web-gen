@@ -26,3 +26,31 @@
   font-weight: bold;
 }
 
+@font-face {
+  font-family: 'Amiri';
+  src: url('/fonts/Amiri-Regular.ttf') format('truetype');
+  font-style: normal;
+  font-weight: regular;
+}
+
+@font-face {
+  font-family: 'Amiri';
+  src: url('/fonts/Amiri-Bold.ttf') format('truetype');
+  font-style: normal;
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: 'Amiri';
+  src: url('/fonts/Amiri-Italic.ttf') format('truetype');
+  font-style: italic;
+  font-weight: regular;
+}
+
+@font-face {
+  font-family: 'Amiri';
+  src: url('/fonts/Amiri-BoldItalic.ttf') format('truetype');
+  font-style: italic;
+  font-weight: bold;
+}
+
