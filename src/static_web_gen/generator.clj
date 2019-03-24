@@ -13,6 +13,14 @@
     [markdown-to-hiccup.core :as md-to-hiccup :refer [md->hiccup]]
     [mount.core :as mount :refer [defstate]]))
 
+(comment
+
+  (f/show-formatters)
+
+  (f/parse (f/formatters))
+  
+  )
+
 (def blog-post-layout (->> "./content/layout/blog-post.hiccup.edn"
                            slurp
                            edn/read-string))
