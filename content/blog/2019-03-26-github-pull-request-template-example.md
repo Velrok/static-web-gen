@@ -34,12 +34,12 @@ I started to make sure that all my PR's would explain the context of a change in
 the first paragraph and the intended change in what follows.
 This received good feedback from fellow developers as well as product
 owners, who started to use the generated slack messages to quickly summarize
-what has been done in say the last month.
+progress over the last month.
 
 Since then we started to use GitHub PR templates to introduce a bit more
-convenience, consistency and project specific elements to pull requests.
+convenience, consistency and project specific elements to most of our pull requests.
 The templates are used as a guide, to be adjusted as
-required, but also as a check list if applicable.
+required, but also as a checklist &ndash; if applicable.
 
 ## Example PR template
 
@@ -81,41 +81,41 @@ works in IE 11
 
 ```
 
-Since we use trello, most PR's now include a link to a trello card. A positive
+Because we use trello, most PR's now include a link to a trello card. A positive
 side effect is that any spontaneous work like quick bug fixes do end up having a
 card as well, which is otherwise easily overlooked.
 
-The template has html comments under _Context_ and _Issues_ which as hopefully
-good enough that they need no further explanation.
+The template has html comments under _Context_ and _Issues_ which are hopefully
+good enough to stand for themselves.
 
-The Fix / Change / Feature section is somewhat controversial and potentially
+The Fix / Change / Feature section is somewhat controversial, and potentially
 over engineered. We are still experimenting with its usefulness.
-Once could argue that any description of the changes made would make it obvious
-what kind if change it is.
+One could argue that any good change description would make it obvious
+what kind of change it is.
 
 Preview is specific to this project, which has a user interface (UI) component.
-Attaching a screenshot of the change is often times more descriptive that any
+Attaching a screenshot of the change is often more descriptive than any
 text and also shows up in the Slack messages, possibly enticing other team
 members to check it out in production.
 
-The checklist in this case is also project specific in that it reminds us to
+The checklist in this case is also project specific. It reminds us to
 check any UI changes are compatible with IE11, which we have to support.
 
-People my delete skip and rename any part of this template it is meant as a
-guide rather then a rigid structure that has to be followed.
-For example people my skip the _Preview_ and _IE11_ parts for changes that
+People may delete skip and rename any part of this template. It is meant as a
+guide rather then a mandatory structure.
+For example, people my skip the _Preview_ and _IE11_ parts for changes that
 are not effecting the UI.
 
 ## Conclusion
 
 We started to use GitHub pull request templates as a optional guide for
-developers in our team to leverage it as communication tool, not just for
+developers in our team, to leverage it as a communication tool not just for
 developers but the entire team. This is achieved through the integration with
-Slack and motivated by the requirements hat all changes are made via PR's by the
+Slack and motivated by the requirement that all changes are made via PR's by the
 business at large.
 
 This example template is one that we are using in a small, company internal, cross functional team.
-Large open source projects have different aims with their pull request and would
+Large open source projects have different aims for their pull requests and would
 probably prefer a template that is more prescriptive.
 
 We use it as a guide to encourage reflection of the change at hand, and to
