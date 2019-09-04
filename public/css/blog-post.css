@@ -1,0 +1,55 @@
+#page {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  grid-template-rows: auto auto auto auto;
+  grid-template-areas: "heading heading heading"  ". blog-title ." ". post ." ". navigation .";
+}
+
+#page {
+  display: grid;
+}
+
+.website-header {
+  grid-area: heading;
+  font-family: 'Quattrocento', serif;
+  margin-top: 5px;
+  margin-left: 5px;
+  margin-bottom: 20px;
+  font-size: 18pt;
+}
+
+#content > article header h1 {
+  font-size: 36pt;
+  font-family: 'Quattrocento Sans', sans-serif;
+  line-height: 1.1;
+  margin: 1rem 0px;
+}
+
+.article-date {
+  font-size: 12pt;
+  font-family: 'Quattrocento Sans', sans-serif;
+  display: block;
+  text-align: right;
+  margin-bottom: 2rem;
+}
+
+#content {
+  grid-area: post;
+  max-width: 24em;
+  font-family: 'Quattrocento Sans', sans-serif;
+}
+
+.page-footer  {
+  grid-area: navigation;
+}
+
+.page-footer > nav > ul {
+  display: flex;
+  justify-content: space-between;
+}
+
+#content > article h2 {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  font-size: 24pt;
+}
