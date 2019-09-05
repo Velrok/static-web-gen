@@ -1,11 +1,84 @@
 body {
-  font-family: 'Source Serif Pro', serif;
-  color: #414141;
-  background-color: #FCFCFC;
+  font-family: 'Quattrocento Sans', sans-serif;
+  color: #111;
+  background-color: #FFFFFF;
   font-size: 14pt;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: 'Quattrocento', serif;
+  line-height: 135%;
+}
+
+p {
+  line-height: 140%;
+  text-indent: 1em;
+}
+
+h2 + p {
+  text-indent: 0em;
+}
+
+h2, h3, h4, h5 {
+  margin-top: 2em;
+  margin-bottom: 0.5em;
+}
+
+h1 {
+  font-size: 36pt;
+}
+
+h2 {
+  font-size: 24pt;
+}
+
+h3 {
+  font-size: 18pt;
+}
+
+pre {
+  margin: 2rem 0rem;
+}
+
+
+
+header {
+  margin-bottom: 1.5em;
 }
 
 a {
   text-decoration: none;
   color: #353535;
 }
+
+#page {
+  /* display: grid;
+  grid-template-columns: auto auto auto;
+  grid-template-rows: auto auto;
+  grid-template-areas: ". heading ." ". content .";
+   */
+  margin: 20px;
+  max-width: 30rem;
+}
+
+#content {
+  border-bottom: 1px solid #414141;
+  border-top: 1px solid #414141;
+  padding: 1.2em 0em;
+}
+
+.website-title {
+  letter-spacing: 0.151rem;
+}
+
+/* 
+#content {
+grid-area: content;
+font-family: 'Quattrocento Sans', sans-serif;
+border-bottom: 1px solid #414141;
+border-top: 1px solid #414141;
+padding: 2em 0px;
+line-height: 22px;
+}
+ */
+

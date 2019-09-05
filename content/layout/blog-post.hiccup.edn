@@ -9,10 +9,15 @@
   [:script {:type "text/javascript" :src "/js/highlight.pack.js"}]
 
   [:link {:rel "stylesheet" :href "/css/styles.css"}]
+  [:link {:rel "stylesheet" :media "screen and (min-width: 768px)" :href "/css/tablets.css"}]
+  <link rel="stylesheet" media=href="widescreen.css">
   [:link {:rel "stylesheet" :href "/css/blog-post.css"}]
   ;; [:link {:rel "stylesheet" :href "/css/typo.css"}]
+  ;[:style
+  ; "@import url('https://fonts.googleapis.com/css?family=Source+Code+Pro|Source+Sans+Pro|Source+Serif+Pro&display=swap');"]
+
   [:style
-   "@import url('https://fonts.googleapis.com/css?family=Source+Code+Pro|Source+Sans+Pro|Source+Serif+Pro&display=swap');"]
+   "@import url('https://fonts.googleapis.com/css?family=Quattrocento|Quattrocento+Sans&display=swap');"]
 
   [:title "Mein(un)sin"]]
 

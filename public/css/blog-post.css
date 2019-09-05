@@ -1,12 +1,31 @@
-#page {
-  display: grid;
-  grid-template-columns: auto auto auto;
-  grid-template-rows: auto auto auto auto;
-  grid-template-areas: "heading heading heading"  ". blog-title ." ". post ." ". navigation .";
+.page-footer  {
+  margin: 1rem 0px;
 }
 
+.page-footer > nav > ul {
+  display: flex;
+  justify-content: space-between;
+}
+
+.article-date {
+  font-size: 12pt;
+  display: block;
+  text-align: right;
+  margin-bottom: 2rem;
+}
+
+#content a {
+  text-decoration: underline;
+}
+
+/*
 #page {
-  display: grid;
+  // display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto auto auto;
+  grid-template-areas: "heading"  "blog-title" "post" "navigation";
+  max-width: 24em;
+  margin: auto 1em;
 }
 
 .website-header {
@@ -25,31 +44,22 @@
   margin: 1rem 0px;
 }
 
-.article-date {
-  font-size: 12pt;
-  font-family: 'Quattrocento Sans', sans-serif;
-  display: block;
-  text-align: right;
-  margin-bottom: 2rem;
-}
+
 
 #content {
   grid-area: post;
-  max-width: 24em;
   font-family: 'Quattrocento Sans', sans-serif;
 }
 
-.page-footer  {
-  grid-area: navigation;
-}
 
-.page-footer > nav > ul {
-  display: flex;
-  justify-content: space-between;
-}
 
 #content > article h2 {
   margin-top: 2rem;
   margin-bottom: 1rem;
   font-size: 24pt;
 }
+
+.hljs {
+  width: 100%;
+}
+*/
