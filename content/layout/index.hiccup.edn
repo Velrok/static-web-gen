@@ -13,6 +13,7 @@
    "@import url('https://fonts.googleapis.com/css?family=Quattrocento|Quattrocento+Sans&display=swap');"]
 
   [:link {:rel "stylesheet" :href "/css/styles.css"}]
+  [:link {:rel "stylesheet" :media "screen and (min-width: 768px)" :href "/css/tablets.css"}]
   [:link {:rel "stylesheet" :href "/css/index.css"}]
   ;; [:link {:rel "stylesheet" :href "/css/typo.css"}]
 

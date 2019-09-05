@@ -47,6 +47,11 @@
   [{:keys [title]} [_ existing-title]]
   [:title (str title " - " existing-title)])
 
+(defmethod content-replacement :p
+  [_meta [_p _attr & content :as p]]
+  (when content
+    p))
+
 (defmethod content-replacement :code
   [_ [_ attr content]]
   (log/info (prn-str [::code content]))

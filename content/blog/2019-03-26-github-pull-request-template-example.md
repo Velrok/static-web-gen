@@ -3,9 +3,10 @@
 
 <time class="article-date" date="2019-03-26">2019-03-26</time>
 </header>
-
-This post illustrates a [GitHub Pull Request template](https://help.github.com/en/articles/creating-a-pull-request-template-for-your-repository)
-I've introduced in our team.
+<abstract>
+  This post illustrates a [GitHub Pull Request template](https://help.github.com/en/articles/creating-a-pull-request-template-for-your-repository)
+  I've introduced in our team.
+</abstract>
 
 ## Our workflow
 

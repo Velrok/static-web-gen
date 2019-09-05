@@ -8,15 +8,11 @@ body {
 h1, h2, h3, h4, h5 {
   font-family: 'Quattrocento', serif;
   line-height: 135%;
+  text-align: center;
 }
 
-p {
-  line-height: 140%;
+p + p {
   text-indent: 1em;
-}
-
-h2 + p {
-  text-indent: 0em;
 }
 
 h2, h3, h4, h5 {
@@ -40,6 +36,10 @@ pre {
   margin: 2rem 0rem;
 }
 
+abstract {
+  font-style: italic;
+  text-indent: 0em;
+}
 
 
 header {
@@ -65,20 +65,10 @@ a {
   border-bottom: 1px solid #414141;
   border-top: 1px solid #414141;
   padding: 1.2em 0em;
+
+  line-height: 140%;
 }
 
 .website-title {
   letter-spacing: 0.151rem;
 }
-
-/* 
-#content {
-grid-area: content;
-font-family: 'Quattrocento Sans', sans-serif;
-border-bottom: 1px solid #414141;
-border-top: 1px solid #414141;
-padding: 2em 0px;
-line-height: 22px;
-}
- */
-
