@@ -72,3 +72,10 @@ a {
 .website-title {
   letter-spacing: 0.151rem;
 }
+
+.website-subtitle {
+  display: block;
+  text-align: center;
+  font-size: 1.5em;
+  letter-spacing: 0.4rem;
+}

@@ -18,5 +18,6 @@
  [:body
   [:div#page
    [:header.website-header
-    [:h1.website-title "Mein(un)sin"]]
+    [:h1.website-title "Mein(un)sin"]
+    [:span.website-subtitle "my (none) sense"]]
    [:div#content]]]]
