@@ -15,7 +15,7 @@
 
   [:title "Mein(un)sin"]]
 
- [:body
+ [:body.body
   [:div#page
    [:header.website-header
     [:h1.website-title [:a {:href "/"} "Mein(un)sin"]]
