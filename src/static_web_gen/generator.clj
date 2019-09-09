@@ -13,21 +13,17 @@
     [markdown-to-hiccup.core :as md-to-hiccup :refer [md->hiccup]]
     [mount.core :as mount :refer [defstate]]))
 
-(comment
+(defn blog-post-layout
+  []
+  (->> "./content/layout/blog-post.hiccup.edn"
+       slurp
+       edn/read-string))
 
-  (f/show-formatters)
-
-  (f/parse (f/formatters))
-  
-  )
-
-(def blog-post-layout (->> "./content/layout/blog-post.hiccup.edn"
-                           slurp
-                           edn/read-string))
-
-(def index-layout (->> "./content/layout/index.hiccup.edn"
-                       slurp
-                       edn/read-string))
+(defn index-layout
+  []
+  (->> "./content/layout/index.hiccup.edn"
+       slurp
+       edn/read-string))
 
 (def blog-post-index (atom #{}))
 
@@ -51,6 +47,11 @@
   [{:keys [title]} [_ existing-title]]
   [:title (str title " - " existing-title)])
 
+(defmethod content-replacement :p
+  [_meta [_p _attr & content :as p]]
+  (when content
+    p))
+
 (defmethod content-replacement :code
   [_ [_ attr content]]
   (log/info (prn-str [::code content]))
@@ -62,7 +63,7 @@
 (defn produce-blog-post-html!
   [{:keys [original-file target-filename rel-file-name] :as post-meta}]
   (let [final-product   (postwalk (partial content-replacement post-meta)
-                                  blog-post-layout)]
+                                  (blog-post-layout))]
     (when target-filename
       (log/info (format "produce blog post for %s -> %s (%s)"
                         original-file
@@ -79,9 +80,9 @@
   (let [file-hiccup     [:ul
                          (for [{:keys [original-file url-rel title date-str]} (reverse (sort-by :date-str posts))]
                            [:li
-                            (when date-str [:span.article-date date-str])
                             [:a {:href url-rel}
-                             (str (or title original-file))]])]
+                             (str (or title original-file))]
+                            (when date-str [:span.article-date date-str])])]
         final-product   (postwalk (fn [x]
                                     (cond
                                       (= x [:div#content])
@@ -89,7 +90,7 @@
                                        [:article file-hiccup]]
 
                                       :else x))
-                                  index-layout)
+                                  (index-layout))
         target-filename "./public/index.html"]
     (log/info (format "regenerating index -> %s (%s)"
                       target-filename
@@ -112,7 +113,7 @@
      :url-rel         rel-url
      :content         (postwalk (partial content-replacement {})
                                 file-hiccup)
-     :layout          blog-post-layout}))
+     :layout          (blog-post-layout)}))
 
 (defn generate-all!
   []

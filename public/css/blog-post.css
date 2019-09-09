@@ -1,0 +1,19 @@
+.page-footer  {
+  margin: 1rem 0px;
+}
+
+.page-footer > nav > ul {
+  display: flex;
+  justify-content: space-between;
+}
+
+.article-date {
+  display: block;
+  font-size: 0.7em;
+  text-align: right;
+  margin-bottom: 2rem;
+}
+
+#content a {
+  text-decoration: underline;
+}

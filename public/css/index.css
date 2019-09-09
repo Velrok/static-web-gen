@@ -1,0 +1,17 @@
+.article-date {
+  display: inline-block;
+  width: 6em;
+  text-align: right;
+  margin-left: 1em;
+  font-size: 0.7em;
+}
+
+#content > article > ul > li {
+  display: flex;
+  margin-bottom: 17px;
+  justify-content: space-between;
+}
+
+#content > article > ul > li > a {
+  display: inline-block;
+}
