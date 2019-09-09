@@ -6,16 +6,12 @@
   [:link {:rel "stylesheet" :href "/css/prismjs.css"}]
   [:script {:type "text/javascript" :src "/js/prismjs.js"}]
 
-  ;[:style
-  ; "@import url('https://fonts.googleapis.com/css?family=Source+Code+Pro|Source+Sans+Pro|Source+Serif+Pro&display=swap');"]
-
   [:style
    "@import url('https://fonts.googleapis.com/css?family=Quattrocento|Quattrocento+Sans&display=swap');"]
 
   [:link {:rel "stylesheet" :href "/css/styles.css"}]
   [:link {:rel "stylesheet" :media "screen and (min-width: 768px)" :href "/css/tablets.css"}]
   [:link {:rel "stylesheet" :href "/css/index.css"}]
-  ;; [:link {:rel "stylesheet" :href "/css/typo.css"}]
 
   [:title "Mein(un)sin"]]
 
