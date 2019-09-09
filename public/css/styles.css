@@ -2,13 +2,13 @@
   font-family: 'Quattrocento Sans', sans-serif;
   color: #111;
   background-color: #FFFFFF;
-  font-size: 14pt;
+  font-size: 100%;
 }
 
 h1, h2, h3, h4, h5 {
   font-family: 'Quattrocento', serif;
   line-height: 135%;
-  text-align: center;
+  text-align: left;
 }
 
 p + p {
@@ -21,15 +21,15 @@ h2, h3, h4, h5 {
 }
 
 h1 {
-  font-size: 36pt;
+  font-size: 2.2em;
 }
 
 h2 {
-  font-size: 24pt;
+  font-size: 1.8em;
 }
 
 h3 {
-  font-size: 18pt;
+  font-size: 1.1em;
 }
 
 pre {
@@ -58,7 +58,7 @@ a {
   grid-template-areas: ". heading ." ". content .";
    */
   margin: 20px;
-  max-width: 30rem;
+  max-width: 35em;
 }
 
 #content {
@@ -70,7 +70,9 @@ a {
 }
 
 .website-title {
+  text-align: center;
   letter-spacing: 0.151rem;
+  font-size: 4em;
 }
 
 .website-subtitle {

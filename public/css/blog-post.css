@@ -8,8 +8,8 @@
 }
 
 .article-date {
-  font-size: 12pt;
   display: block;
+  font-size: 0.7em;
   text-align: right;
   margin-bottom: 2rem;
 }
