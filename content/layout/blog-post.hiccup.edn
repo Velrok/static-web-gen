@@ -17,6 +17,9 @@
    ;"@import url('https://fonts.googleapis.com/css?family=Quattrocento|Quattrocento+Sans&display=swap');"
    ]
 
+  [:style
+   "@import url('https://fonts.googleapis.com/css?family=Open+Sans:300&display=swap');"]
+
   [:title "Mein(un)sin"]]
 
  [:body.body
@@ -24,7 +27,10 @@
    [:header.website-header
     [:h1.website-title [:a {:href "/"} "Mein(un)sin"]]
     [:span.website-subtitle "my (none) sense"]]
-   [:div#content]
+   [:div.left-sidebar
+    [:h2 "All posts"]
+    [:div#page-index]]
+   [:div#blog-post]
    [:script {:type "text/javascript"}
     "hljs.initHighlightingOnLoad();"]
    [:footer.page-footer

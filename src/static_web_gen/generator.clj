@@ -38,9 +38,9 @@
 (defmethod content-replacement :default [post-meta x] #_(prn {::tag (first x)}) x)
 (defmethod content-replacement ::id     [post-meta x] x)
 
-(defmethod content-replacement :div#content
+(defmethod content-replacement :div#blog-post
   [{:keys [content]} x]
-  [:div#content
+  [:div#blog-post
    [:article content]])
 
 (defmethod content-replacement :title
@@ -54,14 +54,23 @@
 
 (defmethod content-replacement :code
   [_ [_ attr content]]
-  (log/info (prn-str [::code content]))
   [:code attr (-> (str content)
                   (string/replace  #">" "&gt;")
                   (string/replace  #"<" "&lt;"))])
 
+(defmethod content-replacement :div#page-index
+  [{:keys [index]} [_ attr _content]]
+  [:div#page-index
+   attr
+   [:ul
+    (doall
+      (for [{:keys [ title date-str url-rel]} index]
+        [:li
+         [:a {:href url-rel} title]
+         [:span.article-date date-str]]))]])
 
 (defn produce-blog-post-html!
-  [{:keys [original-file target-filename rel-file-name] :as post-meta}]
+  [{:keys [original-file target-filename rel-file-name index] :as post-meta}]
   (let [final-product   (postwalk (partial content-replacement post-meta)
                                   (blog-post-layout))]
     (when target-filename
@@ -75,21 +84,9 @@
 
 (def posts-prefix "./content/blog/")
 
-(defn generate-index!
-  [posts]
-  (let [file-hiccup     [:ul
-                         (for [{:keys [original-file url-rel title date-str]} (reverse (sort-by :date-str posts))]
-                           [:li
-                            [:a {:href url-rel}
-                             (str (or title original-file))]
-                            (when date-str [:span.article-date date-str])])]
-        final-product   (postwalk (fn [x]
-                                    (cond
-                                      (= x [:div#content])
-                                      [:div#content
-                                       [:article file-hiccup]]
-
-                                      :else x))
+(defn generate-index-html!
+  [index]
+  (let [final-product   (postwalk (partial content-replacement {:index index})
                                   (index-layout))
         target-filename "./public/index.html"]
     (log/info (format "regenerating index -> %s (%s)"
@@ -124,11 +121,16 @@
                    file-seq
                    (remove #(.isDirectory %))
                    (map #(.getAbsolutePath %))
-                   (map parse-blog-post-md))]
+                   (map parse-blog-post-md))
+        index (->> posts
+                   (map #(select-keys % [:url-rel :title :date-str]))
+                   (sort-by :date-str)
+                   reverse)]
     (->> posts
+         (map #(assoc % :index index))
          (map produce-blog-post-html!)
          doall)
-    (generate-index! posts)))
+    (generate-index-html! index)))
 
 (defstate static-file-regenerator
   :start (let [paths [{:path        "./content/blog/"
@@ -136,8 +138,7 @@
                        :bootstrap   (fn [path] (log/info "Starting to watch " path))
                        :callback    (fn [event filename]
                                       (log/info event filename)
-                                      (produce-blog-post-html! filename)
-                                      (generate-index!))
+                                      (generate-all!))
                        :options     {}}]]
            (generate-all!)
            (log/info (format "static-file-generator is watching %s"
