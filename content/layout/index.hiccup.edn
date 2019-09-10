@@ -9,7 +9,9 @@
   [:script {:type "text/javascript" :src "/js/prismjs.js"}]
 
   [:style
-   "@import url('https://fonts.googleapis.com/css?family=Quattrocento|Quattrocento+Sans&display=swap');"]
+   "@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,400i|Quattrocento&display=swap');"
+   ;"@import url('https://fonts.googleapis.com/css?family=Quattrocento|Quattrocento+Sans&display=swap');"
+   ]
 
   [:link {:rel "stylesheet" :href "/css/styles.css"}]
   [:link {:rel "stylesheet" :href "/css/tablets.css"}]
