@@ -52,6 +52,16 @@
   (when content
     p))
 
+(defmethod content-replacement :a
+  [_meta [_a attr & content :as a]]
+  (if (= ["Mein(un)sin"] content)
+    a
+    [:span
+     [:aside.link-aside
+      [:div.link-aside--title content]
+      [:div.link-aside--url (-> attr :href)]]
+     a]))
+
 (defmethod content-replacement :code
   [_ [_ attr content]]
   [:code attr (-> (str content)
