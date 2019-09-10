@@ -59,7 +59,10 @@
     [:span
      [:aside.link-aside
       [:div.link-aside--title content]
-      [:div.link-aside--url (-> attr :href)]]
+      [:div.link-aside--url
+       [:a.link-aside--url--link {:href (-> attr :href)
+                                  :target "_blank"}
+        (-> attr :href)]]]
      a]))
 
 (defmethod content-replacement :code

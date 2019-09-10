@@ -22,6 +22,10 @@
   .left-sidebar {
     display: none;
   }
+
+  .link-aside {
+    display: none;
+  }
 }
 
 @media only screen and (min-width: 768px) {
@@ -34,8 +38,8 @@
     grid-template-rows: 10em auto 5em;
     grid-template-areas:
     ".     heading ."
-    "index page ."
-    "index footer .";
+    "index page    aside"
+    "index footer  aside";
   }
 
   .website-header {
@@ -71,6 +75,29 @@
   .left-sidebar li {
     border-bottom: solid #DDD 1px;
     margin-bottom: 1em;
+  }
+
+  .link-aside {
+    display: block;
+    width: 18em;
+
+    float: right;
+    clear: right;
+    margin-right: -21em;
+
+    border-top: solid #6c6c6c 1px;
+
+    font-size: 0.7em;
+    font-style: normal;
+
+  }
+
+  .link-aside--url {
+    font-weight: 100;
+  }
+
+  .link-aside--url--link {
+    text-decoration: none !important;
   }
 
   #blog-post {
