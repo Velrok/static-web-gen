@@ -1,5 +1,5 @@
 .body {
-  font-family: 'Quattrocento Sans', sans-serif;
+  font-family: 'Open Sans', 'Quattrocento Sans', sans-serif;
   color: #111;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -11,8 +11,8 @@ h1, h2, h3, h4, h5 {
   text-align: left;
 }
 
-p + p {
-  text-indent: 1em;
+p {
+  margin-bottom: 1em;
 }
 
 h2, h3, h4, h5 {
@@ -29,7 +29,7 @@ h2 {
 }
 
 h3 {
-  font-size: 1.1em;
+  font-size: 1.5em;
 }
 
 pre {
@@ -61,12 +61,12 @@ a {
   max-width: 35em;
 }
 
-#content {
+#page-index, #blog-post {
   border-bottom: 1px solid #414141;
   border-top: 1px solid #414141;
   padding: 1.2em 0em;
 
-  line-height: 140%;
+  line-height: 170%;
 }
 
 .website-title {
