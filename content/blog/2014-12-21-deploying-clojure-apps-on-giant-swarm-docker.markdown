@@ -23,9 +23,9 @@ You can find them on [gitter](https://gitter.im/giantswarm/users).
 
 My app uses the usual combination of [compojure](https://github.com/weavejester/compojure)
 and [ring](https://github.com/ring-clojure/ring).
-Zaiste has a nice and short article which should set you up with a bare bone
-Clojure web app skeleton. Feel free to ignore everything beyond the 
-backend section for now. [Article](http://zaiste.net/2014/02/web_applications_in_clojure_all_the_way_with_compojure_and_om/).
+[Zaiste has a nice and short article](https://web.archive.org/web/20150309073758/https://zaiste.net/2014/02/web_applications_in_clojure_all_the_way_with_compojure_and_om/)
+which should set you up with a bare bone Clojure web app skeleton.
+Feel free to ignore everything beyond the backend section for now.
 
 My deployment process consists of the following steps.
 
@@ -96,7 +96,7 @@ java objects.
 
 ## the Dockerfile
 
-For a introduction to docker head to [https://www.docker.com/](https://www.docker.com/).
+For a introduction to docker head to [docker.com](https://www.docker.com/).
 
 ```ruby
 FROM java:7
@@ -129,9 +129,6 @@ necessary to allow http connections into the container.
 `ENTRYPOINT java -jar money-balance.jar` tells docker, that this command should be run
 when the image is started. Thus when a new container comes up it will
 autostart the standalone jar file.
-
-**Side-note:** 
- - how I tryied to make the Clojure image work
 
 ## the build.sh
 
