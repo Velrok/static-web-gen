@@ -6,12 +6,12 @@
   font-size: 0.7em;
 }
 
-#content > article > ul > li {
+#page-index > ul > li {
   display: flex;
   margin-bottom: 17px;
   justify-content: space-between;
 }
 
-#content > article > ul > li > a {
+#page-index > ul > li > a {
   display: inline-block;
 }

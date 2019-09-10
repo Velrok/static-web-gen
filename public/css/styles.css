@@ -61,12 +61,12 @@ a {
   max-width: 35em;
 }
 
-#content {
+#page-index, #blog-post {
   border-bottom: 1px solid #414141;
   border-top: 1px solid #414141;
   padding: 1.2em 0em;
 
-  line-height: 150%;
+  line-height: 170%;
 }
 
 .website-title {
