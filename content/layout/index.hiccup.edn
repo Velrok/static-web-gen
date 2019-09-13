@@ -23,5 +23,5 @@
   [:div#page
    [:header.website-header
     [:h1.website-title "Mein(un)sin"]
-    [:span.website-subtitle "my (none) sense"]]
+    [:span.website-subtitle "my (non) sense"]]
    [:div#page-index]]]]

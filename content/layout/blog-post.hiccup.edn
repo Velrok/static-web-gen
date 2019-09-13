@@ -26,7 +26,7 @@
   [:div#page
    [:header.website-header
     [:h1.website-title [:a {:href "/"} "Mein(un)sin"]]
-    [:span.website-subtitle "my (none) sense"]]
+    [:span.website-subtitle "my (non) sense"]]
    [:div.left-sidebar
     [:h2 "All posts"]
     [:div#page-index]]
