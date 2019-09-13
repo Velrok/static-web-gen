@@ -18,7 +18,7 @@
   text-decoration: underline;
 }
 
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width: 1200px) {
   .left-sidebar {
     display: none;
   }
@@ -28,9 +28,8 @@
   }
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 1200px) {
   #page {
-    margin: 0px;
     width: 100%;
     max-width: 100%;
     display: grid;
@@ -47,6 +46,7 @@
   }
 
   .left-sidebar {
+    padding-right: 1em;
     grid-area: index;
     margin: 0px auto;
     max-width: 16em;

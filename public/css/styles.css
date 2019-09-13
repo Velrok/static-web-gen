@@ -57,7 +57,8 @@ a {
   grid-template-rows: auto auto;
   grid-template-areas: ". heading ." ". content .";
    */
-  margin: 20px;
+  margin: 20px auto;
+  padding: 0px 1em;
   max-width: 35em;
 }
 
@@ -72,7 +73,13 @@ a {
 .website-title {
   text-align: center;
   letter-spacing: 0.151rem;
-  font-size: 4em;
+  font-size: 14vw;
+}
+
+@media screen and (min-width: 600px) {
+  .website-title {
+     font-size: 83px;
+  }
 }
 
 .website-subtitle {
