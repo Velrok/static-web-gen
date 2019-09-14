@@ -37,8 +37,9 @@ pre {
 }
 
 abstract {
-  font-style: italic;
-  text-indent: 0em;
+  font-style: normal;
+  font-weight: 100;
+  line-height: 25px;
 }
 
 
@@ -52,23 +53,22 @@ a {
 }
 
 #page {
-  /* display: grid;
-  grid-template-columns: auto auto auto;
-  grid-template-rows: auto auto;
-  grid-template-areas: ". heading ." ". content .";
-   */
   margin: 20px auto;
   padding: 0px 1em;
   max-width: 35em;
+  line-height: 170%;
 }
 
 #page-index, #blog-post {
   border-bottom: 1px solid #414141;
   border-top: 1px solid #414141;
-  padding: 1.2em 0em;
-
-  line-height: 170%;
+  padding: 3em 0em;
 }
+
+.website-header {
+ margin-bottom: 3em;
+}
+
 
 .website-title {
   text-align: center;
@@ -78,7 +78,7 @@ a {
 
 @media screen and (min-width: 600px) {
   .website-title {
-     font-size: 83px;
+    font-size: 83px;
   }
 }
 
@@ -87,4 +87,8 @@ a {
   text-align: center;
   font-size: 1.5em;
   letter-spacing: 0.4rem;
+
+   font-weight: 400;
+ font-style: normal;
+}
 }
