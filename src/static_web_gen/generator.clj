@@ -56,14 +56,14 @@
   [_meta [_a attr & content :as a]]
   (if (= ["Mein(un)sin"] content)
     a
-    [:span
-     [:aside.link-aside
+    (list
+      [:aside.link-aside
       [:div.link-aside--title content]
       [:div.link-aside--url
        [:a.link-aside--url--link {:href (-> attr :href)
                                   :target "_blank"}
         (-> attr :href)]]]
-     a]))
+     a)))
 
 (defmethod content-replacement :code
   [_ [_ attr content]]
