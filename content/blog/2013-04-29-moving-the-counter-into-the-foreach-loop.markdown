@@ -20,7 +20,7 @@ for thing in stuff:
 
 Having an extra counter var always annoyed me.
 
-Python comes with this nice `for i in list` formulation, so taking care of a counter separately seamed wrong or at least not elegant.
+Python comes with this nice `for i in list` syntax, so taking care of a counter separately seamed wrong or at least not elegant.
 
 ## update
 
