@@ -21,9 +21,7 @@ brew install leiningen
 away.
 
 This will install Leiningen 2.
-Version 2 breaks compatibility with the old plugin system, but most projects
-that supply Leiningen have a description how to add them to your project.clj
-for each version.
+Version 2 breaks compatibility with the old plugin system, but most projects that supply Leiningen have a description how to add them to your project.clj for each version.
 However if you start a new project, always go with Leiningen 2.
 
 To create our getting started project (we will name it greenfield-clojure) run:
@@ -31,8 +29,7 @@ To create our getting started project (we will name it greenfield-clojure) run:
 lein new greenfield-clojure
 ```
 
-This will create a new folder. For the rest of this writing all file paths will 
-be relative to this folder.
+This will create a new folder. For the rest of this writing all file paths will be relative to this folder.
 
 
 You should see a `project.clj` file looking something like this
@@ -66,15 +63,13 @@ for further information.
 
 ## The REPL
 
-The REPL is a interactive environment where you can run Clojure code, in the
-context of your project.
+The REPL is a interactive environment where you can run Clojure code, in the context of your project.
 
 To start a REPL run:
 ```
 lein repl
 ```
-This will also download and install all dependencies that are given in the
-project.clj.
+This will also download and install all dependencies that are given in the project.clj.
 
 Now we can start and enter a simple **hello world** into the repl:
 
@@ -88,31 +83,23 @@ Now we can start and enter a simple **hello world** into the repl:
 
 I started out, using Sublime Text 2.
 It's a good start. I can recommend installing [SublimeREPL](https://github.com/wuub/SublimeREPL).
-Clojure development uses the REPL extensively, so your editor should
-come with some kind of REPL integration.
+Clojure development uses the REPL extensively, so your editor should come with some kind of REPL integration.
 
 I found SublimeREPL to be less stable as I would have liked.
 So I switched to vim.
 
-One of the best editors for Clojure is Emacs, but I just can't get
-used to it :). All Emacs folks out there: please leave plugin recommendations
-in the comments, I will integrate them.
+One of the best editors for Clojure is Emacs, but I just can't get used to it :). All Emacs folks out there: please leave plugin recommendations in the comments, I will integrate them.
 
 ### vim 
 
-As mentioned above I switched from Sublime to vim, because of its better REPL 
-integration
-via the [fireplace.vim](https://github.com/tpope/vim-fireplace) plugin,
-proved to be more stable.
+As mentioned above I switched from Sublime to vim, because of its REPL integration via the [fireplace.vim](https://github.com/tpope/vim-fireplace) plugin, proved to be more stable.
 
-Once your setup is complete you will be able to send the complete file or
-single calls - under the cursor - to the REPL.
+Once your setup is complete you will be able to send the complete file or single calls - under the cursor - to the REPL.
 Make sure this works. We will use it in the future of this tutorial.
-You can of course just continuously copy and paste the snippets to the REPL by
-hand. However that is very tedious and time consuming.
+You can of course just continuously copy and paste the snippets to the REPL by hand.
+However that is very tedious and time consuming.
 
-You want to use the REPL, because restating the JVM, just to execute one file,
-takes seconds, which makes for a very frustrating feedback cycle.
+You want to use the REPL, because restating the JVM, just to execute one file, takes seconds, which makes for a very frustrating feedback cycle.
 
 While you are at it you might also want to install 
 [rainbow_parentheses.vim](https://github.com/kien/rainbow_parentheses.vim).
