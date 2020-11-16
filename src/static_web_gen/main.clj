@@ -1,9 +1,10 @@
 (ns static-web-gen.main
   (:require
     [clojure.tools.logging :as log]
+    [mount.core :as mount]
+    ;; ns with mount components
     [static-web-gen.server]
-    [static-web-gen.generator :refer [generate-all!]]
-    [mount.core :as mount]))
+    [static-web-gen.generator]))
 
 (defn -main
   [& _]

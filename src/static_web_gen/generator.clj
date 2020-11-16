@@ -8,8 +8,6 @@
     [clojure.edn :as edn]
     [clojure.walk :as walk :refer [postwalk]]
     [hiccup.core :refer [html]]
-    [clj-time.core :as t]
-    [clj-time.format :as f]
     [markdown-to-hiccup.core :as md-to-hiccup :refer [md->hiccup]]
     [mount.core :as mount :refer [defstate]]))
 
