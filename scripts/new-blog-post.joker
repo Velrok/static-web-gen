@@ -1,0 +1,35 @@
+#!/usr/bin/env joker
+
+;; checkout the joker API for a full list of functions: https://candid82.github.io/joker/
+(require '[joker.time :as t])
+(require '[joker.os :as os])
+(require '[joker.string :as string])
+
+;; define a leiningen style -main which takes a variable amount of cli string args
+(defn -main
+  [& [title]]
+  (when-not title
+    (println "Need a title as first arg.")
+    (os/exit 1))
+
+  (let [t0 (t/now)
+        go-format-notation  "2006-01-02" ;; go date format notation is just odd https://programming.guide/go/format-parse-string-time-date-example.html
+        date-str (t/format t0 go-format-notation)
+        title-str (-> title
+                      string/lower-case
+                      (string/replace #" " "-"))
+        filename (str "./content/blog/" date-str "-" title-str ".markdown")
+        content (str
+                  "<header>" "\n"
+                  "# " title  "\n"
+                  "<time class=\"article-date\" date=\"" date-str "\">" date-str "</time>"  "\n"
+                  "</header>\n")]
+    (println content)
+    (println "written to "  filename)
+    (spit filename content)))
+
+
+;; *command-line-args* is a vector if command line args
+;; using apply here call it in a way that is similar to the
+;; -main used by leiningen
+(apply -main *command-line-args*)
