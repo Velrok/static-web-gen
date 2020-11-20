@@ -2,7 +2,7 @@
 
 set -ex
 
-targetdir="../velrok.github.io-master"
+targetdir="../velrok.github.io"
 
 lein gen
 
