@@ -1,0 +1,117 @@
+<[header](header)>
+# Dev setup 2020
+<time class="article-date" date="2020-11-23">2020-11-23</time>
+</header>
+
+I've spend the last few days tinkering with some of my software development
+setup and as a result feel like I settled on a combination of tools that I'm
+hopefully going to be happy with for a few more years.
+
+## My situation
+
+I'm working on Mac OS often swapping between my iMac at home and the MacBook at
+work. My day to day includes writing services in Clojure, config
+files in json & yaml as well the occasional ruby and javascript. 
+
+## Tools
+
+One mayor difference in my setup is that most tools are now configured via dot
+files, which I store in a private github repo. This allows for versioning &
+sharing.
+
+### Window movement
+
+**Window movement** is done via [hammerspoon](https://www.hammerspoon.org).
+I used [Magnet](https://magnet.crowdcafe.com) for a while, which is a lot easier to configure, but does not
+allow sharing of the config via plain text file. Hammerspoon can arguably do too
+much, but I'm using it just for moving windows into places and that works perfectly.
+
+### Terminal
+
+**Terminal**, used to be iTerm than I switched to the standard Mac Terminal but
+have how settled on [Alacritty](https://github.com/alacritty/alacritty).
+It claims to be the fastest terminal, but that is not the main reason. It also
+happens to be configurable via yaml file in `~/.config/alacrity` with auto
+update on change. Take note that it allows to include other files at the top of
+the main config. I've put all special key mapping, and each colour schema into a
+separate file.
+This allows me to switch out the colour schema by pulling in a different file in
+the main config file.
+
+### Editor
+
+**Editor** used to be vim and [MacVim](https://macvim-dev.github.io/macvim/),
+but I've now switched to [NeoVim](https://neovim.io) and
+[Vimr](https://github.com/qvacua/vimr).
+
+Vim and MacVim were perfectly fine. From a pragmatic point of view both vim and
+neovim are basically equivalent. However vim focuses on stability and is
+reluctant to change, whilst [neovim is pushing for more extensibility](https://www.youtube.com/watch?v=Bt-vmPC_-Ho).
+The nightly build of neovim `0.5.x` now includes a language server protocol
+(LSP) client. This means external language servers can provide
+accurate code semantics for navigation and refactoring. 
+Also with floating windows NeoVim GUIs should soon be able to render a more
+modern look whilst keeping vim at the core of text editing.
+
+By the way if you need absolute raw performance for gigantic files have a look at
+[Xi Editor](https://github.com/xi-editor/xi-editor).
+
+## (Neo) vim plugins
+
+After having used vim for years, I just now discovered that it allows for its
+config to be split into sections that get loaded based on file type or on
+plugin. Whilst this is not a mayor change as you can always make config changes
+conditional, it just makes it a lot easier to manage, and keep up to date, when
+its more cleanly layed out.
+
+I'm using two mayor locations:
+
+Configuration specific to file types. This is handy to set shiftwidth and
+others for python for example:
+```bash
+~/.config/nvim/after
+└── ftplugin
+    ├── bash.vim
+    ├── clojure.vim
+    ├── markdown.vim
+    ├── python.vim
+    ├── ruby.vim
+    ├── rust.vim
+    ├── sql.vim
+    └── vimwiki.vim
+```
+
+Configuration for the specific plugins that I'm installing.
+
+```bash
+~/.config/nvim/plugin
+└── config
+    ├── golden_ratio.vim
+    ├── lightline.vim
+    ├── rainbow_main.vim
+    ├── sunset.vim
+    └── vimwiki.vim
+```
+
+On the topic of specific plugin changes:
+[lightline](https://github.com/itchyny/lightline.vim) has replaced airline. Just
+because its a lot easier to setup and the little arrows where not worth the
+trouble with Nerd fonts all the time.
+
+[fzt.vim](https://github.com/junegunn/fzf.vim) has replaced Ctrl-P for fuzzy
+finding files in project, because it's much faster. It can easily be
+mapped to the same key combination acting as a 1:1 replacement.
+
+For clojure I'm now using [Conjure](https://github.com/Olical/conjure) instead
+of fireplace. This blog post describes how to
+[get started with Conjure for Clojure](https://oli.me.uk/getting-started-with-clojure-neovim-and-conjure-in-minutes/) from scratch.
+
+Finally here is a dump of my [neovim config files](https://gist.github.com/Velrok/bbcd666197244dfc51ef97fdc230ba0e) in the
+form of a gist.
+
+## Summary of tools
+
+ - Window movement with [Hammerspoon](https://www.hammerspoon.org)
+ - Terminal: [Alacritty](https://github.com/alacritty/alacritty)
+ - Editor: [neovim](https://neovim.io) & [Vimr](https://github.com/qvacua/vimr)
+ - See [gist for vim pluging](https://gist.github.com/Velrok/bbcd666197244dfc51ef97fdc230ba0e)
