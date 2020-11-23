@@ -1,4 +1,4 @@
-<[header](header)>
+<header>
 # Dev setup 2020
 <time class="article-date" date="2020-11-23">2020-11-23</time>
 </header>
