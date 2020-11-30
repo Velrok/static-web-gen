@@ -84,8 +84,9 @@
     float: right;
     clear: right;
     margin-right: -21em;
+    margin-bottom: 1.5em;
 
-    border-top: solid #6c6c6c 1px;
+    border-top: solid #ececec 1px;
 
     font-size: 0.7em;
     font-style: normal;
@@ -93,6 +94,7 @@
   }
 
   .link-aside--url {
+    font-size: 0.7em;
     font-weight: 100;
   }
 
