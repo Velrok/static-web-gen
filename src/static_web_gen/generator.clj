@@ -26,18 +26,19 @@
 (def blog-post-index (atom #{}))
 
 
+(def p-extras (atom []))
 
 (defmulti content-replacement
-  (fn [post-meta x]
+  (fn [_post-meta x]
     (cond
       (vector? x) (first x)
       :else ::id)))
 
-(defmethod content-replacement :default [post-meta x] #_(prn {::tag (first x)}) x)
-(defmethod content-replacement ::id     [post-meta x] x)
+(defmethod content-replacement :default [_post-meta x] #_(prn {::tag (first x)}) x)
+(defmethod content-replacement ::id     [_post-meta x] x)
 
 (defmethod content-replacement :div#blog-post
-  [{:keys [content]} x]
+  [{:keys [content]} _x]
   [:div#blog-post
    [:article content]])
 
@@ -48,20 +49,25 @@
 (defmethod content-replacement :p
   [_meta [_p _attr & content :as p]]
   (when content
-    p))
+    (if (empty? @p-extras)
+      p
+      (let [result (concat @p-extras [p])]
+        (reset! p-extras [])
+        result))))
 
 (defmethod content-replacement :a
   [_meta [_a attr & content :as a]]
-  (if (= ["Mein(un)sin"] content)
-    a
-    (list
-      [:aside.link-aside
-      [:div.link-aside--title content]
-      [:div.link-aside--url
-       [:a.link-aside--url--link {:href (-> attr :href)
-                                  :target "_blank"}
-        (-> attr :href)]]]
-     a)))
+  (when-not (= ["Mein(un)sin"] content)
+    (swap! p-extras
+           conj
+           (list
+             [:aside.link-aside
+              [:div.link-aside--title content]
+              [:div.link-aside--url
+               [:a.link-aside--url--link {:href (-> attr :href)
+                                          :target "_blank"}
+                (-> attr :href)]]])))
+  a)
 
 (defmethod content-replacement :code
   [_ [_ attr content]]
@@ -82,6 +88,8 @@
 
 (defn produce-blog-post-html!
   [{:keys [original-file target-filename rel-file-name index] :as post-meta}]
+  ;; empty the stash of extras
+  (reset! p-extras [])
   (let [final-product   (postwalk (partial content-replacement post-meta)
                                   (blog-post-layout))]
     (when target-filename
