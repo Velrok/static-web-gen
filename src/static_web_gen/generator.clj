@@ -26,6 +26,9 @@
 (def blog-post-index (atom #{}))
 
 
+;; we use this to collect aside tags within a paragraph
+;; so that we can prepend them in the dom before hand
+;; this is required, because browsers will split p's in two if they contians asides
 (def p-extras (atom []))
 
 (defmulti content-replacement
