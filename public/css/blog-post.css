@@ -9,9 +9,10 @@
 
 .article-date {
   display: block;
-  font-size: 0.7em;
+	font-size: 0.618em;
   text-align: right;
   margin-bottom: 2rem;
+	float: right;
 }
 
 #blog-post a {
@@ -49,6 +50,7 @@
     padding-right: 1em;
     grid-area: index;
     margin: 0px auto;
+		margin-top: 8rem;
     max-width: 16em;
     font-size: 0.85em;
     font-weight: 100;

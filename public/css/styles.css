@@ -1,13 +1,16 @@
 .body {
-  font-family: 'Open Sans', 'Quattrocento Sans', sans-serif;
+	font-family: 'Quicksand', sans-serif;
   color: #111;
   background-color: #FFFFFF;
-  font-size: 100%;
+  font-size: 16pt;
+	font-weight: 300;
+	line-height: 161.8%;
 }
 
 h1, h2, h3, h4, h5 {
-  font-family: 'Quattrocento', serif;
-  line-height: 135%;
+  font-family:  'Raleway', sans-serif;
+	line-height: 161.8%;
+	font-weight: 400;
   text-align: left;
 }
 
@@ -16,20 +19,21 @@ p {
 }
 
 h2, h3, h4, h5 {
-  margin-top: 2em;
-  margin-bottom: 0.5em;
+	margin-top: 1.618em;
+	margin-bottom: 0.618em;
 }
 
 h1 {
-  font-size: 2.2em;
+  font-size: calc(100% * 1.618 * 1.618);
 }
 
 h2 {
-  font-size: 1.8em;
+
+  font-size: calc(100% * 1.618);
 }
 
 h3 {
-  font-size: 1.5em;
+  font-size: calc(100%);
 }
 
 pre {
@@ -49,7 +53,7 @@ header {
 
 a {
   text-decoration: none;
-  color: #353535;
+  color: #111;
 }
 
 #page {
@@ -61,8 +65,7 @@ a {
 
 #page-index, #blog-post {
   border-bottom: 1px solid #414141;
-  border-top: 1px solid #414141;
-  padding: 3em 0em;
+  padding: 0em 0em;
 }
 
 .website-header {
@@ -73,23 +76,19 @@ a {
 .website-title {
   text-align: center;
   letter-spacing: 0.151rem;
-  font-size: 14vw;
 }
 
 @media screen and (min-width: 600px) {
   .website-title {
-    font-size: 83px;
   }
 }
 
 .website-subtitle {
+  font-family:  'Raleway', sans-serif;
+	font-weight: 300;
   display: block;
   text-align: center;
-  font-size: 1.5em;
-  letter-spacing: 0.4rem;
-
-   font-weight: 400;
- font-style: normal;
+  letter-spacing: 0.151rem;
 }
 
 img {
