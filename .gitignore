@@ -12,3 +12,6 @@ pom.xml.asc
 public/.DS_Store
 .DS_Store
 public/index.html
+.clj-kondo/
+
+.lsp/sqlite.1.db
