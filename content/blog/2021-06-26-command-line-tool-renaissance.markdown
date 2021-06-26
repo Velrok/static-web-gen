@@ -26,7 +26,7 @@ and [Sebastian Witowski](https://switowski.com/blog/favorite-cli-tools).
 
 ## Defaults and fullback's
 
-In the case of `ls` and `cat` you might not want to change your mustle memory,
+In the case of `ls` and `cat` you might not want to change your muscle memory,
 specially since many systems may not have exa and bat installed by default.
 
 So im aliasing them as follows:
