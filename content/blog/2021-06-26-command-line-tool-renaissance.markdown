@@ -18,6 +18,7 @@ interface (GUI) apps with simple interactive cli tools.
 - vim -> [neovim](https://neovim.io) 
 - grep -> [rg](https://github.com/BurntSushi/ripgrep) 
 - [starship](https://starship.rs/guide/) 
+- Excel -> [visidata](https://www.visidata.org)
 
 In addition I found more comprehensive lists from
 [Jakub](https://zaiste.net/posts/shell-commands-rust/)
