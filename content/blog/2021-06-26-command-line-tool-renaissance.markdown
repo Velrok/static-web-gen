@@ -17,14 +17,14 @@ piped), as well as automated paging.
 Replaces _ls_. Provides nicer output colouring.
 
 **[fd](https://github.com/sharkdp/fd)**
-Replaces find. Is a lot faster due to parallel folder traversal.
+Replaces _find_. Is a lot faster due to parallel folder traversal.
 
 **[fzf](https://github.com/junegunn/fzf)**
 Very fast fuzzy finder. Pipe any line based output to it to have interactive
 fuzzy find.
 
 **[httpie](https://httpie.io)**
-Replaces _curl. Provides many conveniences when it comes to specifying prams or
+Replaces _curl_. Provides many conveniences when it comes to specifying prams or
 addressing hosts.
 
 **[lazygit](https://github.com/jesseduffield/lazygit)**
@@ -32,7 +32,7 @@ Replaces _Github Desktop_. Interactive git management on the command line. Can
 be used without a mouse.
 
 **[neovim](https://neovim.io)**
-Replaces vim. Ships with lua scripting support, integrated LSP interface (from
+Replaces _vim_. Ships with lua scripting support, integrated LSP interface (from
 0.5.0+), lot of fast and async plugins.
 
 **[rg](https://github.com/BurntSushi/ripgrep)**
@@ -42,8 +42,7 @@ Replaces _grep_. Fast. Very very fast.
 Fancy prompt.
 
 **[visidata](https://www.visidata.org)**
-Replaces _Excel_. Inspect data sets on the command line. Supports any times of
-input. Loads really fast. Can be used without a mouse.
+
 
 
 In addition I found more comprehensive lists from
