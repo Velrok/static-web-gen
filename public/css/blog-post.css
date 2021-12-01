@@ -1,4 +1,4 @@
-.pfooterooter  {
+.pfooterooter {
   margin: 1rem 0px;
 }
 
@@ -42,9 +42,9 @@
     grid-template-columns: 1fr 35em 1fr;
     grid-template-rows: 10em auto 5em;
     grid-template-areas:
-      ".     heading ."
-      "index page    aside"
-      "index footer  aside";
+      '.     heading .'
+      'index page    aside'
+      'index footer  aside';
   }
 
   .website-header {
@@ -80,7 +80,7 @@
   }
 
   .left-sidebar li {
-    border-bottom: solid #DDD 1px;
+    border-bottom: solid #ddd 1px;
     margin-bottom: 1em;
   }
 
@@ -97,7 +97,6 @@
 
     font-size: 0.7em;
     font-style: normal;
-
   }
 
   .link-aside--url {
@@ -119,4 +118,3 @@
     grid-area: footer;
   }
 }
-
