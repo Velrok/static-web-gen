@@ -12,20 +12,15 @@
   [:link {:rel "stylesheet" :href "/css/tablets.css"}]
   [:link {:rel "stylesheet" :href "/css/blog-post.css"}]
 
-  [:style
-   "@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,400i|Quattrocento&display=swap');"
-   ;"@import url('https://fonts.googleapis.com/css?family=Quattrocento|Quattrocento+Sans&display=swap');"
-   ]
-
-  [:style
-   "@import url('https://fonts.googleapis.com/css?family=Open+Sans:300&display=swap');"]
+  [:style "@import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap"]
+  [:style "@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400"]
 
   [:title "Mein(un)sin"]]
 
  [:body.body
   [:div#page
    [:header.website-header
-    [:h1.website-title [:a {:href "/"} "Mein(un)sin"]]
+    [:h1#website-title [:a {:href "/"} "Mein(un)sin"]]
     [:span.website-subtitle "my (non) sense"]]
    [:div.left-sidebar
     [:h2 "All posts"]
