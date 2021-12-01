@@ -19,6 +19,11 @@
   text-decoration: underline;
 }
 
+.comments {
+  grid-area: footer;
+  margin-top: 5rem;
+}
+
 @media only screen and (max-width: 1200px) {
   .left-sidebar {
     display: none;
