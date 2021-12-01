@@ -8,8 +8,7 @@
   [:link {:rel "stylesheet" :href "/css/prismjs.css"}]
   [:script {:type "text/javascript" :src "/js/prismjs.js"}]
 
-  [:style "@import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap"]
-  [:style "@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400"]
+  [:style "@import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap&text=Mein%28un%29sin"]
 
   [:link {:rel "stylesheet" :href "/css/styles.css"}]
   [:link {:rel "stylesheet" :href "/css/tablets.css"}]
