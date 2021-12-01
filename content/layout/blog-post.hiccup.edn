@@ -40,5 +40,14 @@
        ]
       [:li [:a#footer_nav_index {:href "/"} "&#8613; index"]]
       [:li ;[:a#footer_nav_next {:href "/"} "&#8614; next"]
-       ]
-      ]]]]]]
+       ]]]]
+   [:div.comments
+    [:script
+     {:src "https://utteranc.es/client.js"
+      :repo "https://github.com/Velrok/velrok.github.io"
+      :issue-term "pathname"
+      :label "utterance-comment"
+      :theme "github-light"
+      :crossorigin "anonymous"
+      :async true}]]
+    ]]]
