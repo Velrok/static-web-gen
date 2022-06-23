@@ -7,12 +7,13 @@
 
 ;; define a leiningen style -main which takes a variable amount of cli string args
 (defn -main
-  [& [title]]
-  (when-not title
-    (println "Need a title as first arg.")
+  [& args]
+  (when (empty? args)
+    (println "Need a title")
     (os/exit 1))
 
-  (let [t0 (t/now)
+    (let [title (string/join " " args)
+        t0 (t/now)
         go-format-notation  "2006-01-02" ;; go date format notation is just odd https://programming.guide/go/format-parse-string-time-date-example.html
         date-str (t/format t0 go-format-notation)
         title-str (-> title
@@ -29,7 +30,7 @@
     (spit filename content)))
 
 
-;; *command-line-args* is a vector if command line args
+;; *command-line-args* is a vector of command line args
 ;; using apply here call it in a way that is similar to the
 ;; -main used by leiningen
 (apply -main *command-line-args*)
