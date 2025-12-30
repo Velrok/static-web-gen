@@ -34,9 +34,11 @@ If you are not familiar with types and would like to learn them I can recommend 
 Example from the official docs:
 
 ```ruby
-# (1) New enumerations are defined by creating a subclass of T::Enum
+# (1) New enumerations are defined by
+# creating a subclass of T::Enum
 class Suit < T::Enum
-  # (2) Enum values are declared within an `enums do` block
+  # (2) Enum values are declared within
+  # an `enums do` block
   enums do
     Spades = new
     Hearts = new
@@ -62,7 +64,10 @@ class Suit < T::Enum
         when Clubs: "♣️"
         when Diamonds: "♦️"
         else
-            # this is where sorbet will throw type errors if we were to ever expand on the types of available Suits
+            # this is where sorbet will throw
+            # type errors if we were to ever
+            # expand on the types of available
+            # Suits
             T.absurd(self)
         end
     end
@@ -83,7 +88,9 @@ We will model a Mortgage to have a `accounting_version`, which returns an Enum:
 
 class AccountingVersion < T::Enum
     enums do
-        # use simple int values rather than the default string values to optimize DB storage
+        # use simple int values rather than
+        # the default string values to
+        # optimize DB storage
         V1 = new(1)
         V2 = new(2)
     end
@@ -92,7 +99,8 @@ end
 class Mortgage
     sig {returns(AccountingVersion)}
     def accounting_version
-        # read serialized value from DB, then deserialize into Enum value
+        # read serialized value from DB,
+        # then deserialize into Enum value
     end
 end
 
@@ -110,10 +118,15 @@ class PaymentReceivedHandler
 
     sig {params(mortgage: Mortgage, event: Event)}
     def self.call(mortgage:, event)
-        # sorbet needs a var to perform exhaustiveness checks, so we can't use the method call directly, but instead need to assign the value to a local var first.
+        # sorbet needs a var to perform
+        # exhaustiveness checks, so we can't
+        # use the method call directly, but
+        # instead need to assign the value to
+        # a local var first.
         version = mortgage.accounting_version()
         case version
-            when AccountingVersion::V1, AccountingVersion::V2
+            when AccountingVersion::V1,
+                 AccountingVersion::V2
             # move money into a current account
         else
             # absurd is only defined on vars
@@ -125,12 +138,19 @@ end
 class PaymentDueHandler
     sig {params(mortgage: Mortgage, event: Event)}
     def self.call(mortgage:, event)
-        # sorbet needs a var to perform exhaustiveness checks, so we can't use the method call directly, but instead need to assign the value to a local var first.
+        # sorbet needs a var to perform
+        # exhaustiveness checks, so we can't
+        # use the method call directly, but
+        # instead need to assign the value to
+        # a local var first.
         version = mortgage.accounting_version()
         case version
-            when AccountingVersion::V1, AccountingVersion::V2
-            # use money in the holding account; no overdraft logic
-            # if holding is < then due customers will be in arrears
+            when AccountingVersion::V1,
+                 AccountingVersion::V2
+            # use money in the holding account;
+            # no overdraft logic
+            # if holding is < then due customers
+            # will be in arrears
         else
             # absurd is only defined on vars
             T.absurd(version)
@@ -177,8 +197,14 @@ class PaymentDueEvent
   attr_reader :amount_due
 end
 
-# Event is a type alias for a union of PaymentReceivedEvent and PaymentDueEvent
-Event = T.type_alias { T.any(PaymentReceivedEvent, PaymentDueEvent) }
+# Event is a type alias for a union of
+# PaymentReceivedEvent and PaymentDueEvent
+Event = T.type_alias {
+  T.any(
+    PaymentReceivedEvent,
+    PaymentDueEvent
+  )
+}
 ```
 
 Note how both `PaymentReceivedEvent` and `PaymentDueEvent` define different properties.
@@ -195,7 +221,10 @@ class EventProcessor
         when PaymentDueEvent:
             PaymentDueHandler(event:)
         else
-            # if we were to add more events this would fail type checking and we would be reminded to implement a handler for the new event
+            # if we were to add more events
+            # this would fail type checking and
+            # we would be reminded to implement
+            # a handler for the new event
             T.absurd(event)
         end
     end
