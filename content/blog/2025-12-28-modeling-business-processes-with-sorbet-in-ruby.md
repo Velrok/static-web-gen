@@ -1,5 +1,5 @@
 <header>
-# Modeling business processes with sorbet in ruby
+# Exhaustiveness checks for a saner future
 <time class="article-date" date="2025-12-28">2025-12-28</time>
 </header>
 
@@ -186,6 +186,20 @@ Note how both `PaymentReceivedEvent` and `PaymentDueEvent` define different prop
 A simple event processor could dispatch on event type:
 
 ```ruby
+class EventProcessor
+    sig {paras(event: Event)}
+    def self.call(event:)
+        case event
+        when PaymentReceivedEvent:
+            PaymentReceivedHandler(event:)
+        when PaymentDueEvent:
+            PaymentDueHandler(event:)
+        else
+            # if we were to add more events this would fail type checking and we would be reminded to implement a handler for the new event
+            T.absurd(event)
+        end
+    end
+end
 
 ```
 
@@ -195,4 +209,10 @@ This is by design.
 If you need this `T::Enum` is the correct construct to use.
 
 
+## Summary and trade-offs
 
+`T.any` is the most flexible implementation, and the closest to a textbook tagged union.
+However it is only defined on ruby classes, not literals, so if all you need is a list of fixed values like a `V1` `V2` and so on, then `T::Enum` provide a more convenient implementation.
+
+If values need to be data contains, like events that have different properties, then defining separate classes and building a tagged union using `T.any` is the only choice.
+If a exhaustiveness list of possible values is the main objective like numbered versions, then `T::Enums` are preferable, for their literals support and their ease of serialisation and de-serialisation.

@@ -134,6 +134,12 @@
                                 file-hiccup)
      :layout          (blog-post-layout)}))
 
+(defn markdown-file?
+  [file]
+  (let [name (.getName file)]
+    (or (string/ends-with? name ".md")
+        (string/ends-with? name ".markdown"))))
+
 (defn generate-all!
   []
   (reset! blog-post-index #{})
@@ -142,6 +148,7 @@
                    (io/as-file)
                    file-seq
                    (remove #(.isDirectory %))
+                   (filter markdown-file?)
                    (map #(.getAbsolutePath %))
                    (map parse-blog-post-md))
         index (->> posts
