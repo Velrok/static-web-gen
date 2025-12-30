@@ -98,11 +98,10 @@ end
 
 ```
 
-Lets say we have two financial events we need to model for a mortgage.
+Let's say we have two financial events we need to model for a mortgage.
 
 1. Payment received
 2. Payment due
-
 
 
 ```ruby
@@ -140,8 +139,60 @@ class PaymentDueHandler
 end
 ```
 
+Now lets say that the requirements have changed and in the PaymentDueHandler case we need to categorise any potential arrears into the repayment and the interest portion.
+Just adding a V3 to `AccountingVersion` would now make the two case statements fail with a helpful type error, stating that the case is incomplete and that the  V3 case is missing.
+
+In the `PaymentReceivedHandler` case we can just add V3 to the existing list.
+For the `PaymentDueHandler` we would need to add a new when clause and add the new logic.
+
+In the example it was easy to remember all the places we needed to change. But in our  actual code base we have someone in the region of 15 different handlers that may or may not have to behave differently.
+
+Even just adding a new version to the existing case, at least means we have considered this case and decided that no new logic was required.
+
 ### Limitation of T::Enum
 
+Enums values like a V1 or a Hearts can't store  data inside them.
+This makes them unusable for something like an `Event` type where we would also have a fixed list of possible values, but each event may contain its own data.
+
+In these cases we need to reach for the more complex and generic `T.any`.
+
 ## T.any
+
+[T.any](https://sorbet.org/docs/union-types) is sorbet union type.
+It can only be defined as a list of ruby classes: `T.any(SomeType, SomeOtherType, ...)` like `T.any(Integer, String)` meaning either a whole number or a string.
+
+
+### A practical example
+
+Events are a good example for a finite list of values, that each contain more data.
+
+```ruby
+class PaymentReceivedEvent
+  sig { returns(Cents) }
+  attr_reader :amount_received
+end
+
+class PaymentDueEvent
+  sig { returns(Cents) }
+  attr_reader :amount_due
+end
+
+# Event is a type alias for a union of PaymentReceivedEvent and PaymentDueEvent
+Event = T.type_alias { T.any(PaymentReceivedEvent, PaymentDueEvent) }
+```
+
+Note how both `PaymentReceivedEvent` and `PaymentDueEvent` define different properties.
+
+A simple event processor could dispatch on event type:
+
+```ruby
+
+```
+
+Unlike type script sorbet does not allow the use of literals like `'V1'` or `1` in T.any.
+This is by design.
+
+If you need this `T::Enum` is the correct construct to use.
+
 
 
