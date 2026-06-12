@@ -24,7 +24,7 @@ I'll first explain T::Enum then T.any and finish with a discussion on pros and c
 
 This article assumes a basic familiarity with programming and types. The examples will be in ruby.
 
-If you are not familiar with types and would like to learn them I can recommend [Gleam](https://gleam.run) as a very simple language with an excellent tooling and great type system.
+If you are not familiar with types and would like to learn them I can recommend [Gleam](https://gleam.run) as a very simple language with a excellent tooling and great type system.
 
 
 ## T::Enum
@@ -160,14 +160,14 @@ end
 ```
 
 Now lets say that the requirements have changed and in the PaymentDueHandler case we need to categorise any potential arrears into the repayment and the interest portion.
-Just adding a V3 to `AccountingVersion` would now make the two case statements fail with a helpful type error, stating that the case is incomplete and that the  V3 case is missing.
+Just adding a V3 to `AccountingVersion` would now make the two case statements fail with a helpful type error, stating that the case is incomplete and that the V3 case is missing.
 
 In the `PaymentReceivedHandler` case we can just add V3 to the existing list.
 For the `PaymentDueHandler` we would need to add a new when clause and add the new logic.
 
-In the example it was easy to remember all the places we needed to change. But in our actual code base we have around 15 different handlers that may or may not have to behave differently.
+In the example it was easy to remember all the places we needed to make changes, but in our actual code base we have around 15 different handlers that may or may not have to behave differently.
 
-Even just adding a new version to the existing case, at least means we have considered this case and decided that no new logic was required.
+Even just adding a new version to the existing case, means we have at least considered this case and decided that no new logic was required.
 
 ### Limitation of T::Enum
 
