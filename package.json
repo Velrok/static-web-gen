@@ -1,0 +1,14 @@
+{
+  "name": "static-web-gen",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Playwright tooling for the static-web-gen site (`lein run` starts the live server)",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Velrok/static-web-gen.git"
+  },
+  "type": "commonjs",
+  "devDependencies": {
+    "@playwright/test": "^1.62.0"
+  }
+}

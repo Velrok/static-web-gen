@@ -16,3 +16,7 @@ public/index.html
 
 .lsp/sqlite.1.db
 content/blog/.obsidian
+
+node_modules/
+/test-results
+/playwright-report
