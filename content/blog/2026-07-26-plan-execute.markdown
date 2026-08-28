@@ -4,7 +4,7 @@
 </header>
 
 Recently we had the need at work to present a few _prepare > review > execute_ workflows. Sometimes this comes through as a workflow that requires a `dry-run` step. For this I started to use a pattern of `plan` then `execute` requiring the plan as a prerequisite to ensure that the initial checks have been performed and have passed.
-Not having a pattern for this can often result in methods that take a `is_dry_run` which ends up with one method mixing the prepare and execute logic, which makes it hard to reuse the prepare logic separately to presenting its results to the user for review.
+Not having a pattern for this can often result in methods that take an `is_dry_run` which ends up with one method mixing the prepare and execute logic, which makes it hard to reuse the prepare logic separately from presenting its results to the user for review.
 
 # The pattern
 
@@ -20,8 +20,8 @@ Examples:
 
 ```ruby
 # This uses Sorbet types to illustrate the interface.
-# Errors an simplified to just String, in prod you would want to use diferenciated Error classes.
-# Typed::Result is a gem not a sorbet / ruby build in.
+# Errors are simplified to just String, in prod you would want to use differentiated Error classes.
+# Typed::Result is a gem not a sorbet / ruby built-in.
 class Operation
     attr loans_to_migrate # list of loan ids to move to new funder
     attr target_funder
@@ -32,13 +32,13 @@ class Operation
     def self.plan
         # run all the pre execution checks (like which loans are valid to move)
         # You want to keep it write effect free so it can be run many times without impact.
-        # if all checks out: return on Operation instance otherwise return errors
+        # if all checks out: return an Operation instance otherwise return errors
     end
 
     sig {returns(Typed::Result[NilClass, String])}
     def execute
-        # This can now only be executed if it was previously build via .plan
-        # enforces that all validations where run.
+        # This can now only be executed if it was previously built via .plan,
+        # which enforces that all validations were run.
         # Do the actual side effect here.
         # It may still encounter runtime errors.
     end
@@ -48,11 +48,11 @@ class Operation
 end
 ```
 
-It's a spin on the ["Parse don't validate" principal](https://github.com/wyattgill9/knowledge-base/blob/main/Wiki/Pages/parse-dont-validate.md).
-Rather then parsing input data into a valid shape, which allows skipping further validations, we parse inputs into a set of precomputed stable inputs, but delay their execution.
+It's a spin on the ["Parse don't validate" principle](https://github.com/wyattgill9/knowledge-base/blob/main/Wiki/Pages/parse-dont-validate.md).
+Rather than parsing input data into a valid shape, which allows skipping further validations, we parse inputs into a set of precomputed stable inputs, but delay their execution.
 There are downsides around staleness with this which I cover [further down](#what-it-does-not-afford).
 
-Also it is somewhat similar to the [Command pattern](https://en.wikipedia.org/wiki/Command_pattern) although without the abstract class and inheritance baggage, or one could think of it as a [partial function](https://en.wikipedia.org/wiki/Partial_function) as long as the `Operation` attributes as fully owned and immutable values.
+Also it is somewhat similar to the [Command pattern](https://en.wikipedia.org/wiki/Command_pattern) although without the abstract class and inheritance, or one could think of it as a [partial function](https://en.wikipedia.org/wiki/Partial_function) as long as the `Operation` attributes are fully owned and immutable values.
 
 # Benefits
 
@@ -60,7 +60,7 @@ Also it is somewhat similar to the [Command pattern](https://en.wikipedia.org/wi
 
 `Operation#execute` <a href="#footnote-1" id="footnote-1-ref">[1]</a> can't be called unless `Operation.plan` succeeded, which means ruby will make sure the pre-checks have run and we also have a clear method to put all the side effects we want.
 
-With this separation we have an easy and consistent way to delay execution as needed without loosing all the context.
+With this separation we have an easy and consistent way to delay execution as needed without losing all the context.
 
 If you don't need typed results and are happy for new to throw Exceptions you can simply use Operation.new.execute.
 I prefer the `TypedResult` explicit error handling, and `new` has to return an instance of the class, so I abstract it away with `.plan` which can return a `TypedResult` for explicit error handling.
@@ -71,8 +71,8 @@ I prefer the `TypedResult` explicit error handling, and `new` has to return an i
 
 # What it _doesn't_ afford
 
-`Operation.plan` essencially caches all the inputs into the instance it returns. There is no build in protection for these values going stale.
-This is by design, because the mittigation against this will likely depend on your execution situation.
+`Operation.plan` essentially caches all the inputs into the instance it returns. There is no built-in protection for these values going stale.
+This is by design, because the mitigation against this will likely depend on your execution situation.
 
 If you run it all sync for example you might get away with just wrapping it all in a transaction:
 
@@ -86,7 +86,7 @@ Transaction.run do
 end
 ```
 
-If your using in the UI you might use it primarity to facilitate the dry run:
+If you're using it in the UI you might use it primarily to facilitate the dry run:
 
 ```ruby
     def preview # assuming GET
@@ -100,7 +100,7 @@ If your using in the UI you might use it primarity to facilitate the dry run:
     def confirm_and_execute # assuming POST
         Transaction.run do
             # :warn: stale read risk here
-            # If this is a real risk concider adding some kind of check sum or finger print to the original
+            # If this is a real risk consider adding some kind of checksum or fingerprint to the original
             # Operation.plan result pass it through to the POST to compare against
             op = Operation.plan
 
@@ -120,7 +120,7 @@ If your using in the UI you might use it primarity to facilitate the dry run:
 Although we have made sure that the data we are about to process is valid, we can't rule out the write failing.
 Issues like the DB refusing the write, the File refusing the write, or some API failing to execute as requested.
 
-Again depending on your cicumstance you might be OK to just wait a bit a retry or you might have to abort and ask the user to create and review another plan.
+Again depending on your circumstance you might be OK to just wait a bit and retry or you might have to abort and ask the user to create and review another plan.
 
 ______________________________________________________________________
 
@@ -129,4 +129,4 @@ ______________________________________________________________________
 called on the class itself, while `Class#instance_method` (hash) refers to a method
 called on an instance of that class. So `Operation.plan` is a class method and
 `Operation#execute` is an instance method. The `#` is only a documentation notation,
-it's never write it in code. <a href="#footnote-1-ref">↩</a>
+it's never written in code. <a href="#footnote-1-ref">↩</a>
