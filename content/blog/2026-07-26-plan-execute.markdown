@@ -1,11 +1,9 @@
 <header>
-# The plan/execute pattern for prepare, review, execute operations
+# The plan, execute pattern
 <time class="article-date" date="2026-07-26">2026-07-26</time>
 </header>
 
-Recently we needed to support a few _prepare > review > execute_ workflows at work. Often this arrives as a request for a `dry-run` step.
-
-The obvious first move is a flag:
+Recently we needed to support a few _prepare > review > execute_ workflows at work. Often the first reaction is to add a `dry-run` parameter to whatever method would run this flow.
 
 ```ruby
 def migrate_loans(loan_ids, target_funder, dry_run: false)
@@ -17,7 +15,7 @@ def migrate_loans(loan_ids, target_funder, dry_run: false)
 end
 ```
 
-This mixes the prepare and execute logic in one method. The prepare half is the part you want to reuse — to show the user a summary before they commit — but it's now trapped behind a flag and a body full of writes.
+This mixes the prepare and execute logic in one method. The prepare half is the part you want to reuse, to show to the user as a summary before they commit, but it's now trapped behind a flag and a body full of potential writes.
 
 So I started using a pattern of `plan` then `execute`, where a successful `plan` is a prerequisite for `execute`. That way the checks can't be skipped, and their results are a thing you can hold on to and show to someone.
 
@@ -25,24 +23,22 @@ So I started using a pattern of `plan` then `execute`, where a successful `plan`
 
 The main idea is a class-level `plan` method that returns an object. That object holds the validated, precomputed inputs, and it is the only thing that exposes `execute`.
 
-This gates the write effect behind a set of validations and data prep stages that have already passed, which makes `execute` far more predictable.
+This gates the write effect behind a set of data preparations and validations, which makes `execute` far more predictable.
 
-Examples:
-
-- Migrating loans from Funder A to Funder B atomically. The user picks the loans and the target funder, we check each loan can be moved, we show a summary of go / no-go loans, and the user confirms or aborts.
-- A customer wants to change their payment day. We calculate the impact on their payment schedule _without applying it_, present it, and they confirm or abort.
+Let's say we need an option to migrate loans from Funder A to Funder B. The user picks the loans and the target funder, we check each loan can be moved, we show a summary of go / no-go loans, and the user confirms or aborts.
 
 ```ruby
 # Sorbet types are used to illustrate the interface.
 # Errors are simplified to String; in prod you'd want differentiated error classes.
 # Typed::Result is a gem, not a Sorbet or Ruby built-in.
-class Operation
+# We use T::Struct as a base to make it easier to have a typed Data class
+class Operation < T::Struct
     extend T::Sig
 
-    attr_reader :loans_to_migrate # loan ids to move to the new funder
-    attr_reader :target_funder
+    const :loans_to_migrate, T::Array[LoanId] # loan ids to move to the new funder
+    const :target_funder, FunderId
 
-    sig {params(loan_ids: T::Array[Integer], target_funder: Funder).returns(Typed::Result[Operation, T::Array[String]])}
+    sig {params(loan_ids: T::Array[LoanId], target_funder: FunderId).returns(Typed::Result[Operation, T::Array[String]])}
     def self.plan(loan_ids:, target_funder:)
         # Run all the pre-execution checks, e.g. which loans are valid to move.
         # Keep this free of write effects so it can be run many times without impact.
@@ -50,11 +46,11 @@ class Operation
     end
 
     # Singular error here: plan collects all validation failures,
-    # execute stops at the first runtime one.
+    # execute stops at the first runtime error.
     sig {returns(Typed::Result[NilClass, String])}
     def execute
         # This can only be reached if the instance was built via .plan,
-        # which enforces that all validations ran.
+        # which enforces that all validations ran successfully.
         # Do the actual side effect here. It may still hit runtime errors.
     end
 
@@ -63,35 +59,36 @@ class Operation
 end
 ```
 
-`new` is private because `new` must return an instance of the class — it can't return a `Typed::Result`. Routing construction through `.plan` gives you a spot for explicit error handling. If you don't need typed results and are happy for construction to raise, `Operation.new.execute` works just as well.
+`new` is private because `new` must return an instance of the class; it can't return a `Typed::Result`. Routing construction through `.plan` gives you a spot for explicit error handling. If you don't need typed results and are happy for construction to raise, `Operation.new.execute` works just as well.
 
 It's a spin on Alexis King's ["Parse, don't validate"](https://lexi-lambda.github.io/blog/2019/11/05/parse-don-t-validate/).
-There, you parse input into a type that proves the checks passed, so downstream code never has to revalidate. Here we do the same, but we hold on to that proof across a user round-trip instead of consuming it immediately — which is where the staleness problem comes from, covered [further down](#what-it-does-not-afford).
+He suggests parsing input into a type that proves the checks passed, so downstream code never has to revalidate. Here we do the same, but we hold on to that proof across a user round-trip instead of consuming it immediately.
+This comes with [stale read implications](#what-it-does-not-afford) discussed further down.
 
-It's also similar to the [Command pattern](https://en.wikipedia.org/wiki/Command_pattern), minus the abstract base class and inheritance. Or you can think of it as a [partial function](https://en.wikipedia.org/wiki/Partial_function), as long as the `Operation` attributes are fully owned, immutable values.
+It's also similar to the [Command pattern](https://en.wikipedia.org/wiki/Command_pattern), minus the abstract base class and inheritance. Or you can think of it as a [partial function](https://en.wikipedia.org/wiki/Partial_function), as long as the `Operation` attributes are stable, immutable values.
 
 # Benefits
 
-`Operation.plan` gives you one place for all the pre-execution checks, with a general expectation that the code there is free of write effects. Reads are fine — they may go stale, which I cover below — and that's usually a practical simplification worth making.
+`Operation.plan` gives you one place for all the pre-execution checks, with a general expectation that the code there is free of write effects. Reads are, strictly speaking, a side effect, but allowing them is usually a pragmatic choice. See [stale read implications](#what-it-does-not-afford) for the complications this still brings.
 
-`Operation#execute` <a href="#footnote-1" id="footnote-1-ref">[1]</a> can't be called unless `Operation.plan` succeeded, so Ruby itself enforces that the pre-checks ran. It also gives you one obvious home for every side effect.
+`Operation#execute` <a href="#footnote-1" id="footnote-1-ref">[1]</a> can't be called unless `Operation.plan` succeeded, so Ruby itself enforces that the pre-checks ran. It also gives you one obvious place for every write side effect.
 
-With that separation you get a consistent way to delay execution without losing the context you built up.
+With that separation we get a consistent way to delay execution without losing the context you built up.
 
-`plan` and `execute` could be given different names. The point is to split the prep from the side effect.
+`plan` and `execute` could be given different names. The point is to split the prep from the write.
 
 <a id="what-it-does-not-afford"></a>
 
 # What it _doesn't_ afford
 
-`Operation.plan` essentially caches all the inputs into the instance it returns. There is no built-in protection for these values going stale.
+`Operation.plan` essentially caches all the inputs into the instance it returns. There is no built-in protection against these values going stale.
 This is by design, because the right mitigation depends on how and where you execute.
 
-If you run it all sync for example you might get away with just wrapping it all in a transaction:
+If you run it all sync, for example, you might get away with just wrapping it all in a transaction:
 
 ```ruby
 Transaction.run do
-    case (result = Operation.plan(loan_ids: loan_ids, target_funder: target_funder))
+    case (result = Operation.plan(loan_ids: loan_ids, target_funder: target_funder_id))
     when Typed::Success then result.payload.execute
     when Typed::Failure then raise result.error
     else T.absurd(result)
@@ -99,7 +96,7 @@ Transaction.run do
 end
 ```
 
-If you're using it in the UI you might use it primarily to facilitate the dry run:
+If you're using it in the UI, you might use it primarily to facilitate the dry run:
 
 ```ruby
 def preview # assuming GET
@@ -112,10 +109,10 @@ end
 
 def confirm_and_execute # assuming POST
     Transaction.run do
-        # :warn: stale read risk here — we re-plan, and the world may have
+        # :warn: stale read risk here. We re-plan, and the world may have
         # moved since the user saw the preview. A checksum or fingerprint on the
         # original Operation.plan result, passed through to the POST, lets us
-        # detect it.
+        # detect it if needed.
         case (result = Operation.plan(loan_ids: params[:loan_ids], target_funder: target_funder))
         when Typed::Success
             op = result.payload
@@ -131,11 +128,16 @@ end
 
 ## Execute runtime errors
 
-Even though the data we're about to process has been validated, we can't rule out the write itself failing — the database rejecting it, the disk being full, an API returning an error.
+Even though the data we're about to process has been validated, we can't rule out the write itself failing.
+The database might reject it, the disk might be full, an API might return an error.
 
-Again, depending on your circumstances, you might be fine to wait and retry, or you might have to abort and ask the user to build and review a fresh plan.
+Depending on your circumstances, you might be fine to wait and retry, or you might have to abort and ask the user to build and review a fresh plan.
 
-☑️TODO: write a closer — return to the `dry_run` flag from the intro and say what the extra ceremony buys you, and when it isn't worth it.
+# Summary
+
+If you have one simple command, where you just want the option to skip a few writes, a `dry_run:` flag might be good enough, and in fact short and sweet.
+If you're modelling some business flow that needs to find and validate its inputs, show a preview to the user to review and confirm every time, then I think the `plan / execute` pattern presented here gives a separation of pre-processing and execution.
+It establishes a place for pre-processing, validation and delayed write effects, without boxing you into a specific execution model. However, holding on to the `Operation` object for too long risks stale reads. How long that is, and how to mitigate it, is context-specific and not answered by this pattern.
 
 ______________________________________________________________________
 
