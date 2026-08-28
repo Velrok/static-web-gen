@@ -3,10 +3,10 @@
 <time class="article-date" date="2026-07-26">2026-07-26</time>
 </header>
 
-Recently we needed to support a few _prepare > review > execute_ workflows at work. Often the first reaction is to add a `dry-run` parameter to whatever method would run this flow.
+Recently we needed to support a few _prepare > review > execute_ workflows at work. Often the first reaction is to add a `dry_run` parameter to whatever method would run this flow.
 
 ```ruby
-def migrate_loans(loan_ids, target_funder, dry_run: false)
+def migrate_loans(loan_ids, target_funder_id, dry_run: false)
     # validate the loans
     # ...
     return summary if dry_run
@@ -35,11 +35,11 @@ Let's say we need an option to migrate loans from Funder A to Funder B. The user
 class Operation < T::Struct
     extend T::Sig
 
-    const :loans_to_migrate, T::Array[LoanId] # loan ids to move to the new funder
-    const :target_funder, FunderId
+    const :loan_ids, T::Array[LoanId] # loan ids to move to the new funder
+    const :target_funder_id, FunderId
 
-    sig {params(loan_ids: T::Array[LoanId], target_funder: FunderId).returns(Typed::Result[Operation, T::Array[String]])}
-    def self.plan(loan_ids:, target_funder:)
+    sig {params(loan_ids: T::Array[LoanId], target_funder_id: FunderId).returns(Typed::Result[Operation, T::Array[String]])}
+    def self.plan(loan_ids:, target_funder_id:)
         # Run all the pre-execution checks, e.g. which loans are valid to move.
         # Keep this free of write effects so it can be run many times without impact.
         # If everything checks out, return an Operation instance; otherwise return the errors.
@@ -47,11 +47,18 @@ class Operation < T::Struct
 
     # Singular error here: plan collects all validation failures,
     # execute stops at the first runtime error.
-    sig {returns(Typed::Result[NilClass, String])}
+    sig { void } # or might return a final list of changed records if desired
     def execute
         # This can only be reached if the instance was built via .plan,
         # which enforces that all validations ran successfully.
         # Do the actual side effect here. It may still hit runtime errors.
+    end
+
+    # Optional, and context specific: a stable digest of the planned inputs, so a
+    # caller can detect that the world moved between plan and execute. What goes
+    # into it depends on what staleness means for your flow. See below.
+    sig {returns(String)}
+    def fingerprint
     end
 
     # new is private, so callers have to go through the plan stage
@@ -88,9 +95,9 @@ If you run it all sync, for example, you might get away with just wrapping it al
 
 ```ruby
 Transaction.run do
-    case (result = Operation.plan(loan_ids: loan_ids, target_funder: target_funder_id))
+    case (result = Operation.plan(loan_ids: loan_ids, target_funder_id: target_funder_id))
     when Typed::Success then result.payload.execute
-    when Typed::Failure then raise result.error
+    when Typed::Failure then raise result.error.join(", ")
     else T.absurd(result)
     end
 end
@@ -100,9 +107,9 @@ If you're using it in the UI, you might use it primarily to facilitate the dry r
 
 ```ruby
 def preview # assuming GET
-    case (result = Operation.plan(loan_ids: params[:loan_ids], target_funder: target_funder))
+    case (result = Operation.plan(loan_ids: params[:loan_ids], target_funder_id: params[:target_funder_id]))
     when Typed::Success then render_review_and_confirm_view(result.payload)
-    when Typed::Failure then render_show_validation_errors(result.error)
+    when Typed::Failure then render_validation_errors(result.error)
     else T.absurd(result)
     end
 end
@@ -113,13 +120,13 @@ def confirm_and_execute # assuming POST
         # moved since the user saw the preview. A checksum or fingerprint on the
         # original Operation.plan result, passed through to the POST, lets us
         # detect it if needed.
-        case (result = Operation.plan(loan_ids: params[:loan_ids], target_funder: target_funder))
+        case (result = Operation.plan(loan_ids: params[:loan_ids], target_funder_id: params[:target_funder_id]))
         when Typed::Success
             op = result.payload
             next render_stale_confirmation_warning if op.fingerprint != params[:original_fingerprint]
 
             op.execute
-        when Typed::Failure then render_show_validation_errors(result.error)
+        when Typed::Failure then render_validation_errors(result.error)
         else T.absurd(result)
         end
     end
